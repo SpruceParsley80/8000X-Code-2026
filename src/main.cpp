@@ -225,11 +225,44 @@ void usercontrol(void) {
 
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
+    bool toggleA = false;
+    bool pistonOut = false;
     chassis.control_arcade();
+    if (Controller.ButtonR2.pressing()) {
+      Intake.spin(fwd);
+    }
+    else if (Controller.ButtonR1.pressing()) {
+      Intake.spin(reverse);
+    }
+    else {
+      Intake.stop();
+    }
+    if(Controller.ButtonL1.pressing()){
+      LiftMotors.spin(fwd);
+    }
+    else if(Controller.ButtonL2.pressing()){
+      LiftMotors.spin(reverse);
+    }
+    else{
+      LiftMotors.stop(hold);
+    }
+    if(Controller.ButtonA.pressing()){
+     if (toggleA){
+      pistonOut = !pistonOut;
+      Piston.set(pistonOut);
+      toggleA = false;
+     
+     }
+     else {
+    toggleA = true;
+     }
+     }
+    
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
+
 }
 
 //
