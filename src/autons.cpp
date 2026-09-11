@@ -21,6 +21,14 @@ void default_constants(){
   chassis.set_swing_exit_conditions(1, 300, 3000);
 }
 
+
+
+
+
+
+
+
+
 /**
  * Sets constants to be more effective for odom movements.
  * For functions like drive_to_point(), it's often better to have
