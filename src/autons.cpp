@@ -127,3 +127,11 @@ void holonomic_odom_test(){
   chassis.holonomic_drive_to_pose(0, 18, 270);
   chassis.holonomic_drive_to_pose(0, 0, 0);
 }
+
+void match_auton(){
+  chassis.drive_distance(5);
+  chassis.drive_distance(-5);
+  chassis.drive_distance(5);
+  chassis.drive_distance(-5);
+  
+}

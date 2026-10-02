@@ -175,7 +175,7 @@ void autonomous(void) {
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      drive_test();
+      match_auton();
       break;
     case 1:         
       drive_test();
@@ -213,6 +213,12 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
+  // Toggles for the winch
+  bool toggleA = false;
+  bool pistonOut = false;
+  // Toggles for the claw
+  bool toggleB = false;
+  bool pistonOutB = false;  
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -226,11 +232,58 @@ void usercontrol(void) {
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
     chassis.control_arcade();
+    if (Controller.ButtonR2.pressing()) {
+      Intake.spin(fwd);
+    }
+    else if (Controller.ButtonR1.pressing()) {
+      Intake.spin(reverse);
+    }
+    else {
+      Intake.stop();
+    }
+    if(Controller.ButtonL1.pressing()){
+      LiftMotors.spin(fwd);
+    }
+    else if(Controller.ButtonL2.pressing()){
+      LiftMotors.spin(reverse);
+    }
+    else{
+      LiftMotors.stop(hold);
+    }
+    // For winch
+    // For winch
+  if (Controller.ButtonA.pressing()) {
+    if (!toggleA) {
+      pistonOut = !pistonOut;
+      Winch_Piston.set(pistonOut);
+      toggleA = true;
+    }
+  }
+  else {
+    toggleA = false;
+  }
+    // For Claw
+    // For Claw
+  if (Controller.ButtonB.pressing()) {
+    if (!toggleB) {
+      pistonOutB = !pistonOutB;
+      Claw_Piston.set(pistonOutB);
+      toggleB = true;
+    }
+  }
+  else {
+    toggleB = false;
+  }
+    
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
 }
+
+
+  
+
 
 //
 // Main will set up the competition functions and callbacks.
