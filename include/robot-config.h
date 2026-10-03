@@ -27,16 +27,14 @@ extern motor Intake1;
 extern motor Intake2;
 extern motor_group Intake;
 
-extern motor Lift;
-extern motor Lift2;
-extern motor_group LiftMotors;
-
-
 
 extern digital_out Winch_Piston;
 extern digital_out Claw_Piston;
 
+const int SCORE_LEVEL_CONSTANT = 10;
 
 void vexcodeInit(void);
+
+void moveLift(int);
 
 void  vexcodeInit( void );

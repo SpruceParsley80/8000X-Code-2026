@@ -137,9 +137,17 @@ void holonomic_odom_test(){
 }
 
 void match_auton(){
+  //change the toggle
+  chassis.turn_to_angle(0);
   chassis.drive_distance(5);
   chassis.drive_distance(-5);
   chassis.drive_distance(5);
   chassis.drive_distance(-5);
-  
+  chassis.turn_to_angle(45);
+  Intake.spin(forward);
+  chassis.drive_distance(30);
+  Intake.stop(brake);
+  chassis.turn_to_angle(180);
+  Intake.spin(forward);
+  chassis.drive_distance(30);
 }

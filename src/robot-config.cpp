@@ -28,14 +28,30 @@ motor_group RightDrive = motor_group(RightFront, RightBack, RightHalf);
 motor Intake1 = motor(PORT1, ratio18_1, false);
 motor Intake2 = motor(PORT15, ratio18_1, false);
 motor_group Intake = motor_group(Intake1,Intake2);
-motor Lift  = motor(PORT13, ratio18_1, false); // If the lift is only one motor
-motor Lift2 = motor(PORT8, ratio18_1, false); // If the intake is more than one motor, add them to a motor group
 digital_out Winch_Piston = digital_out(Brain.ThreeWirePort.A);
 digital_out Claw_Piston = digital_out(Brain.ThreeWirePort.B);
-motor_group LiftMotors = motor_group(Lift, Lift2);
+
+
 
 //Add your devices below, and don't forget to do the same in robot-config.h:
 
 void vexcodeInit( void ) {
   // nothing to initialize
+}
+
+//a simple, probably not actually functional macro thing for lifting the lift in units of cups
+void moveLift(int levels){
+  if (levels >= 0) {
+    Winch_Piston.set(1);
+    Intake.spin(forward);
+    wait(levels * SCORE_LEVEL_CONSTANT, msec);
+    Intake.stop(brake);
+    Winch_Piston.set(0);
+  } else {
+    Winch_Piston.set(1);
+    Intake.spin(reverse);
+    wait(levels * SCORE_LEVEL_CONSTANT, msec);
+    Intake.stop(brake);
+    Winch_Piston.set(0);
+  }
 }

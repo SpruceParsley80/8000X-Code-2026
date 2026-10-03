@@ -108,6 +108,7 @@ PORT3,     -PORT4,
 int current_auton_selection = 0;
 bool auto_started = false;
 
+
 /**
  * Function before autonomous. It prints the current auton number on the screen
  * and tapping the screen cycles the selected auton by 1. Add anything else you
@@ -243,16 +244,7 @@ void usercontrol(void) {
     else {
       Intake.stop();
     }
-    if(Controller.ButtonL1.pressing()){
-      LiftMotors.spin(fwd);
-    }
-    else if(Controller.ButtonL2.pressing()){
-      LiftMotors.spin(reverse);
-    }
-    else{
-      LiftMotors.stop(hold);
-    }
-   
+       
     // For winch
     // For winch
   if (Controller.ButtonA.pressing()) {
@@ -286,7 +278,6 @@ void usercontrol(void) {
   }
 
 }
-
 
   
 
