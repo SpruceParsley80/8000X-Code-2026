@@ -175,7 +175,7 @@ void autonomous(void) {
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      drive_test();
+      match_auton();
       break;
     case 1:         
       drive_test();
@@ -213,6 +213,12 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
+  // Toggles for the winch
+  bool toggleA = false;
+  bool pistonOut = false;
+  // Toggles for the claw
+  bool toggleB = false;
+  bool pistonOutB = false;  
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -246,6 +252,7 @@ void usercontrol(void) {
     else{
       LiftMotors.stop(hold);
     }
+<<<<<<< HEAD
     if(Controller.ButtonA.pressing()){
      if (toggleA){
       pistonOut = !pistonOut;
@@ -257,6 +264,32 @@ void usercontrol(void) {
     toggleA = true;
      }
      }
+=======
+    // For winch
+    // For winch
+  if (Controller.ButtonA.pressing()) {
+    if (!toggleA) {
+      pistonOut = !pistonOut;
+      Winch_Piston.set(pistonOut);
+      toggleA = true;
+    }
+  }
+  else {
+    toggleA = false;
+  }
+    // For Claw
+    // For Claw
+  if (Controller.ButtonB.pressing()) {
+    if (!toggleB) {
+      pistonOutB = !pistonOutB;
+      Claw_Piston.set(pistonOutB);
+      toggleB = true;
+    }
+  }
+  else {
+    toggleB = false;
+  }
+>>>>>>> e91609323e944759ab97946e9540e270da0991cc
     
 
     wait(20, msec); // Sleep the task for a short amount of time to
@@ -264,6 +297,10 @@ void usercontrol(void) {
   }
 
 }
+
+
+  
+
 
 //
 // Main will set up the competition functions and callbacks.
