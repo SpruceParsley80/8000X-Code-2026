@@ -19,6 +19,8 @@ motor LeftFront = motor(PORT1, ratio18_1, false); // Make sure to set the correc
 motor LeftBack = motor(PORT2, ratio18_1, false);
 motor LeftHalf = motor(PORT6, ratio18_1, true); //change half direction if needed
 
+motor elbow = motor(PORT16, ratio18_1, false);
+
 motor RightFront = motor(PORT3, ratio18_1, true);
 motor RightBack = motor(PORT4, ratio18_1, true);
 motor RightHalf = motor(PORT5, ratio18_1, false);
@@ -55,3 +57,15 @@ void moveLift(int levels){
     Winch_Piston.set(0);
   }
 }
+
+// void toggleArm() {
+//   if (armOut) {
+//     elbow.spin(forward);
+//     wait(ARM_ROTATION_TIME_CONSTANT, msec);
+//     elbow.stop(brake);
+//   } else {
+//     elbow.spin(reverse);
+//     wait(ARM_ROTATION_TIME_CONSTANT, msec);
+//     elbow.stop(brake);
+//   }
+// }

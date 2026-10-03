@@ -220,6 +220,9 @@ void usercontrol(void) {
   // Toggles for the claw
   bool toggleB = false;
   bool pistonOutB = false;  
+  // Toggles for the arm/elbow
+  bool toggleArm = false;
+  bool extendedArm = false;
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -232,8 +235,6 @@ void usercontrol(void) {
 
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    bool toggleA = false;
-    bool pistonOut = false;
     chassis.control_arcade();
     if (Controller.ButtonR2.pressing()) {
       Intake.spin(fwd);
@@ -244,12 +245,11 @@ void usercontrol(void) {
     else {
       Intake.stop();
     }
-       
-    // For winch
+
     // For winch
   if (Controller.ButtonA.pressing()) {
     if (!toggleA) {
-      pistonOut = !pistonOut;
+
       Winch_Piston.set(pistonOut);
       toggleA = true;
     }
@@ -257,11 +257,10 @@ void usercontrol(void) {
   else {
     toggleA = false;
   }
-    // For Claw
+
     // For Claw
   if (Controller.ButtonB.pressing()) {
     if (!toggleB) {
-      pistonOutB = !pistonOutB;
       Claw_Piston.set(pistonOutB);
       toggleB = true;
     }
@@ -270,6 +269,18 @@ void usercontrol(void) {
     toggleB = false;
   }
 
+  //for arm
+  if (Controller.ButtonL1.pressing()) {
+    if (!toggleArm) {
+      elbow.spin(forward);
+      wait(ARM_ROTATION_TIME_CONSTANT, msec);
+      elbow.stop(brake);
+      toggleArm = true;
+    }
+  }
+  else {
+    toggleArm = false;
+  }
 
     
 

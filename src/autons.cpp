@@ -150,4 +150,5 @@ void match_auton(){
   chassis.turn_to_angle(180);
   Intake.spin(forward);
   chassis.drive_distance(30);
+  moveLift(1);
 }
