@@ -14,9 +14,11 @@ extern controller Controller;
 
 extern motor LeftFront;
 extern motor LeftBack;
+extern motor LeftHalf;
 
 extern motor RightFront;
 extern motor RightBack;
+extern motor RightHalf;
 
 extern motor_group LeftDrive;
 extern motor_group RightDrive;

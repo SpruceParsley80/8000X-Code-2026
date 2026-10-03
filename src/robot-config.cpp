@@ -17,12 +17,14 @@ controller Controller = controller(primary);
 //Add your devices below, and don't forget to do the same in robot-config.h:
 motor LeftFront = motor(PORT1, ratio18_1, false); // Make sure to set the correct motor carthridge ratio and reversed flag for your motor
 motor LeftBack = motor(PORT2, ratio18_1, false);
+motor LeftHalf = motor(PORT6, ratio18_1, true); //change half direction if needed
 
 motor RightFront = motor(PORT3, ratio18_1, true);
 motor RightBack = motor(PORT4, ratio18_1, true);
+motor RightHalf = motor(PORT5, ratio18_1, false);
 
-motor_group LeftDrive = motor_group(LeftFront, LeftBack);
-motor_group RightDrive = motor_group(RightFront, RightBack);
+motor_group LeftDrive = motor_group(LeftFront, LeftBack, LeftHalf);
+motor_group RightDrive = motor_group(RightFront, RightBack, RightHalf);
 motor Intake1 = motor(PORT1, ratio18_1, false);
 motor Intake2 = motor(PORT15, ratio18_1, false);
 motor_group Intake = motor_group(Intake1,Intake2);
