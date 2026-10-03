@@ -252,19 +252,7 @@ void usercontrol(void) {
     else{
       LiftMotors.stop(hold);
     }
-<<<<<<< HEAD
-    if(Controller.ButtonA.pressing()){
-     if (toggleA){
-      pistonOut = !pistonOut;
-      Piston.set(pistonOut);
-      toggleA = false;
-     
-     }
-     else {
-    toggleA = true;
-     }
-     }
-=======
+   
     // For winch
     // For winch
   if (Controller.ButtonA.pressing()) {
@@ -289,7 +277,6 @@ void usercontrol(void) {
   else {
     toggleB = false;
   }
->>>>>>> e91609323e944759ab97946e9540e270da0991cc
 
 
     
