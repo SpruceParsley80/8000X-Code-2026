@@ -9,6 +9,7 @@ brain  Brain;
 
 controller Controller = controller(primary);
 
+bool armOut;
 
 //The motor constructor takes motors as (port, ratio, reversed), so for example
 //motor LeftFront = motor(PORT1, ratio6_1, false);
@@ -58,14 +59,14 @@ void moveLift(int levels){
   }
 }
 
-// void toggleArm() {
-//   if (armOut) {
-//     elbow.spin(forward);
-//     wait(ARM_ROTATION_TIME_CONSTANT, msec);
-//     elbow.stop(brake);
-//   } else {
-//     elbow.spin(reverse);
-//     wait(ARM_ROTATION_TIME_CONSTANT, msec);
-//     elbow.stop(brake);
-//   }
-// }
+void toggleArm() {
+  if (armOut) {
+    elbow.spin(forward);
+    wait(ARM_ROTATION_TIME_CONSTANT, msec);
+    elbow.stop(brake);
+  } else {
+    elbow.spin(reverse);
+    wait(ARM_ROTATION_TIME_CONSTANT, msec);
+    elbow.stop(brake);
+  }
+}
