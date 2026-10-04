@@ -82,7 +82,7 @@ void full_test() {
  */
 void odom_test() {
   chassis.set_coordinates(0, 0, 0);
-  while (true) {
+  while(true) {
     Brain.Screen.clearScreen();
     Brain.Screen.printAt(5,20, "X: %f", chassis.get_X_position());
     Brain.Screen.printAt(5,40, "Y: %f", chassis.get_Y_position());
