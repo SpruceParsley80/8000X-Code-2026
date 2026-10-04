@@ -5,7 +5,7 @@ using signature = vision::signature;
 using code = vision::code;
 
 // A global instance of brain used for printing to the V5 Brain screen.
-brain  Brain;
+brain Brain;
 
 controller Controller = controller(primary);
 
@@ -27,7 +27,7 @@ motor_group LeftDrive = motor_group(LeftFront, LeftBack, LeftHalf);
 motor_group RightDrive = motor_group(RightFront, RightBack, RightHalf);
 motor Intake1 = motor(PORT1, ratio18_1, false);
 motor Intake2 = motor(PORT15, ratio18_1, false);
-motor_group Intake = motor_group(Intake1,Intake2);
+motor_group Intake = motor_group(Intake1, Intake2);
 digital_out Winch_Piston = digital_out(Brain.ThreeWirePort.A);
 digital_out Claw_Piston = digital_out(Brain.ThreeWirePort.B);
 

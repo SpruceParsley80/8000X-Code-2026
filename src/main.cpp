@@ -242,40 +242,40 @@ void usercontrol() {
       Intake.stop();
     }
 
-  // For winch
-  if (Controller.ButtonA.pressing()) {
-    if (!toggleA) {
-      Winch_Piston.set(pistonOut);
-      toggleA = true;
+    // For winch
+    if (Controller.ButtonA.pressing()) {
+      if (!toggleA) {
+        Winch_Piston.set(pistonOut);
+        toggleA = true;
+      }
     }
-  }
-  else {
-    toggleA = false;
-  }
+    else {
+      toggleA = false;
+    }
 
-  // For claw
-  if (Controller.ButtonB.pressing()) {
-    if (!toggleB) {
-      Claw_Piston.set(pistonOutB);
-      toggleB = true;
+    // For claw
+    if (Controller.ButtonB.pressing()) {
+      if (!toggleB) {
+        Claw_Piston.set(pistonOutB);
+        toggleB = true;
+      }
     }
-  }
-  else {
-    toggleB = false;
-  }
+    else {
+      toggleB = false;
+    }
 
-  // For arm
-  if (Controller.ButtonL1.pressing()) {
-    if (!toggleArm) {
-      elbow.spin(forward);
-      wait(ARM_ROTATION_TIME_CONSTANT, msec);
-      elbow.stop(brake);
-      toggleArm = true;
+    // For arm
+    if (Controller.ButtonL1.pressing()) {
+      if (!toggleArm) {
+        elbow.spin(forward);
+        wait(ARM_ROTATION_TIME_CONSTANT, msec);
+        elbow.stop(brake);
+        toggleArm = true;
+      }
     }
-  }
-  else {
-    toggleArm = false;
-  }
+    else {
+      toggleArm = false;
+    }
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
