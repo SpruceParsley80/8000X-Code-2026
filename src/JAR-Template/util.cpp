@@ -8,15 +8,11 @@
  */
 
 float reduce_0_to_360(float angle) {
-  while (!(angle >= 0 && angle < 360)) {
-    if (angle < 0) {
-      angle += 360;
-    }
-    if (angle >= 360) {
-      angle -= 360;
-    }
+  while(!(angle >= 0 && angle < 360)) {
+    if( angle < 0 ) { angle += 360; }
+    if(angle >= 360) { angle -= 360; }
   }
-  return (angle);
+  return(angle);
 }
 
 /**
@@ -27,15 +23,11 @@ float reduce_0_to_360(float angle) {
  */
 
 float reduce_negative_180_to_180(float angle) {
-  while (!(angle >= -180 && angle < 180)) {
-    if (angle < -180) {
-      angle += 360;
-    }
-    if (angle >= 180) {
-      angle -= 360;
-    }
+  while(!(angle >= -180 && angle < 180)) {
+    if( angle < -180 ) { angle += 360; }
+    if(angle >= 180) { angle -= 360; }
   }
-  return (angle);
+  return(angle);
 }
 
 /**
@@ -48,15 +40,11 @@ float reduce_negative_180_to_180(float angle) {
  */
 
 float reduce_negative_90_to_90(float angle) {
-  while (!(angle >= -90 && angle < 90)) {
-    if (angle < -90) {
-      angle += 180;
-    }
-    if (angle >= 90) {
-      angle -= 180;
-    }
+  while(!(angle >= -90 && angle < 90)) {
+    if( angle < -90 ) { angle += 180; }
+    if(angle >= 90) { angle -= 180; }
   }
-  return (angle);
+  return(angle);
 }
 
 /**
@@ -66,7 +54,9 @@ float reduce_negative_90_to_90(float angle) {
  * @return Angle in radians.
  */
 
-float to_rad(float angle_deg) { return (angle_deg / (180.0 / M_PI)); }
+float to_rad(float angle_deg){
+  return(angle_deg/(180.0/M_PI));
+}
 
 /**
  * Converts an angle in radians to degrees.
@@ -75,7 +65,9 @@ float to_rad(float angle_deg) { return (angle_deg / (180.0 / M_PI)); }
  * @return Angle in degrees.
  */
 
-float to_deg(float angle_rad) { return (angle_rad * (180.0 / M_PI)); }
+float to_deg(float angle_rad){
+  return(angle_rad*(180.0/M_PI));
+}
 
 /**
  * "Clamps" a number between a min and max.
@@ -88,14 +80,10 @@ float to_deg(float angle_rad) { return (angle_rad * (180.0 / M_PI)); }
  * @return Clamped number.
  */
 
-float clamp(float input, float min, float max) {
-  if (input > max) {
-    return (max);
-  }
-  if (input < min) {
-    return (min);
-  }
-  return (input);
+float clamp(float input, float min, float max){
+  if( input > max ){ return(max); }
+  if(input < min){ return(min); }
+  return(input);
 }
 
 /**
@@ -105,10 +93,9 @@ float clamp(float input, float min, float max) {
  * @return Whether the input is negative.
  */
 
-bool is_reversed(double input) {
-  if (input < 0)
-    return (true);
-  return (false);
+bool is_reversed(double input){
+  if(input<0) return(true);
+  return(false);
 }
 
 /**
@@ -120,7 +107,9 @@ bool is_reversed(double input) {
  * @return The equivalent value in volts.
  */
 
-float to_volt(float percent) { return (percent * 12.0 / 100.0); }
+float to_volt(float percent){
+  return(percent*12.0/100.0);
+}
 
 /**
  * Converts an input port to a triport.
@@ -131,11 +120,11 @@ float to_volt(float percent) { return (percent * 12.0 / 100.0); }
  * @return Port-1, to convert it to a triport.
  */
 
-int to_port(int port) {
-  if (port > 8 || port < 1) {
-    return (0);
+int to_port(int port){
+  if(port > 8 || port < 1){
+    return(0);
   }
-  return (port - 1);
+  return(port-1);
 }
 
 /**
@@ -147,11 +136,11 @@ int to_port(int port) {
  * @return The deadbanded value.
  */
 
-float deadband(float input, float width) {
-  if (std::fabs(input) < width) {
-    return (0);
+float deadband(float input, float width){
+  if (std::fabs(input)<width){
+    return(0);
   }
-  return (input);
+  return(input);
 }
 
 /**
@@ -168,10 +157,8 @@ float deadband(float input, float width) {
  * @return Whether the robot can be considered settled.
  */
 
-bool is_line_settled(float desired_X, float desired_Y, float desired_angle_deg,
-                     float current_X, float current_Y) {
-  return ((desired_Y - current_Y) * cos(to_rad(desired_angle_deg)) <=
-          -(desired_X - current_X) * sin(to_rad(desired_angle_deg)));
+bool is_line_settled(float desired_X, float desired_Y, float desired_angle_deg, float current_X, float current_Y){
+  return( (desired_Y-current_Y) * cos(to_rad(desired_angle_deg)) <= -(desired_X-current_X) * sin(to_rad(desired_angle_deg)) );
 }
 
 /**
@@ -184,14 +171,12 @@ bool is_line_settled(float desired_X, float desired_Y, float desired_angle_deg,
  * @return The scaled voltage for the left side of the robot.
  */
 
-float left_voltage_scaling(float drive_output, float heading_output) {
-  float ratio = std::max(std::fabs(drive_output + heading_output),
-                         std::fabs(drive_output - heading_output)) /
-                12.0;
+float left_voltage_scaling(float drive_output, float heading_output){
+  float ratio = std::max(std::fabs(drive_output+heading_output), std::fabs(drive_output-heading_output))/12.0;
   if (ratio > 1) {
-    return (drive_output + heading_output) / ratio;
+    return (drive_output+heading_output)/ratio;
   }
-  return drive_output + heading_output;
+  return drive_output+heading_output;
 }
 
 /**
@@ -204,14 +189,12 @@ float left_voltage_scaling(float drive_output, float heading_output) {
  * @return The scaled voltage for the right side of the robot.
  */
 
-float right_voltage_scaling(float drive_output, float heading_output) {
-  float ratio = std::max(std::fabs(drive_output + heading_output),
-                         std::fabs(drive_output - heading_output)) /
-                12.0;
+float right_voltage_scaling(float drive_output, float heading_output){
+  float ratio = std::max(std::fabs(drive_output+heading_output), std::fabs(drive_output-heading_output))/12.0;
   if (ratio > 1) {
-    return (drive_output - heading_output) / ratio;
+    return (drive_output-heading_output)/ratio;
   }
-  return drive_output - heading_output;
+  return drive_output-heading_output;
 }
 
 /**
@@ -225,11 +208,11 @@ float right_voltage_scaling(float drive_output, float heading_output) {
  * @return The voltage with the minimum applied.
  */
 
-float clamp_min_voltage(float drive_output, float drive_min_voltage) {
-  if (drive_output < 0 && drive_output > -drive_min_voltage) {
-    return -drive_min_voltage;
+float clamp_min_voltage(float drive_output, float drive_min_voltage){
+  if(drive_output < 0 && drive_output > -drive_min_voltage){
+      return -drive_min_voltage;
   }
-  if (drive_output > 0 && drive_output < drive_min_voltage) {
+  if(drive_output > 0 && drive_output < drive_min_voltage){
     return drive_min_voltage;
   }
   return drive_output;

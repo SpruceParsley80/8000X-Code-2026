@@ -11,8 +11,13 @@
  * @param starti Maximum error to start integrating.
  */
 
-PID::PID(float error, float kp, float ki, float kd, float starti)
-    : error(error), kp(kp), ki(ki), kd(kd), starti(starti) {};
+PID::PID(float error, float kp, float ki, float kd, float starti) :
+  error(error),
+  kp(kp),
+  ki(ki),
+  kd(kd),
+  starti(starti)
+{};
 
 /**
  * PID constructor with settling inputs.
@@ -32,10 +37,17 @@ PID::PID(float error, float kp, float ki, float kd, float starti)
  * @param timeout Time after which to give up and move on.
  */
 
-PID::PID(float error, float kp, float ki, float kd, float starti,
-         float settle_error, float settle_time, float timeout)
-    : error(error), kp(kp), ki(ki), kd(kd), starti(starti),
-      settle_error(settle_error), settle_time(settle_time), timeout(timeout) {};
+PID::PID(float error, float kp, float ki, float kd, float starti, 
+float settle_error, float settle_time, float timeout) :
+  error(error),
+  kp(kp),
+  ki(ki),
+  kd(kd),
+  starti(starti),
+  settle_error(settle_error),
+  settle_time(settle_time),
+  timeout(timeout)
+{};
 
 /**
  * PID constructor with custom update period.
@@ -53,12 +65,18 @@ PID::PID(float error, float kp, float ki, float kd, float starti,
  * @param update_period Loop delay time in ms.
  */
 
-PID::PID(float error, float kp, float ki, float kd, float starti,
-         float settle_error, float settle_time, float timeout,
-         float update_period)
-    : error(error), kp(kp), ki(ki), kd(kd), starti(starti),
-      settle_error(settle_error), settle_time(settle_time), timeout(timeout),
-      update_period(update_period) {};
+PID::PID(float error, float kp, float ki, float kd, float starti, 
+float settle_error, float settle_time, float timeout, float update_period) :
+  error(error),
+  kp(kp),
+  ki(ki),
+  kd(kd),
+  starti(starti),
+  settle_error(settle_error),
+  settle_time(settle_time),
+  timeout(timeout),
+  update_period(update_period)
+{};
 
 /**
  * Computes the output power based on the error.
@@ -71,26 +89,26 @@ PID::PID(float error, float kp, float ki, float kd, float starti,
  * @return Output power.
  */
 
-float PID::compute(float error) {
-  if (fabs(error) < starti) {
-    accumulated_error += error;
+float PID::compute(float error){
+  if (fabs(error) < starti){
+    accumulated_error+=error;
   }
   // Checks if the error has crossed 0, and if it has, it eliminates the integral term.
-  if ((error > 0 && previous_error < 0) || (error < 0 && previous_error > 0)) {
-    accumulated_error = 0;
+  if ((error>0 && previous_error<0)||(error<0 && previous_error>0)){ 
+    accumulated_error = 0; 
   }
 
-  output = kp * error + ki * accumulated_error + kd * (error - previous_error);
+  output = kp*error + ki*accumulated_error + kd*(error-previous_error);
 
-  previous_error = error;
+  previous_error=error;
 
-  if (fabs(error) < settle_error) {
-    time_spent_settled += 10;
+  if(fabs(error)<settle_error){
+    time_spent_settled+=10;
   } else {
     time_spent_settled = 0;
   }
 
-  time_spent_running += 10;
+  time_spent_running+=10;
 
   return output;
 }
@@ -104,13 +122,13 @@ float PID::compute(float error) {
  * @return Whether the movement is settled.
  */
 
-bool PID::is_settled() {
-  if (time_spent_running > timeout && timeout != 0) {
-    return (true);
-  } // If timeout does equal 0, the move will never actually time out. Setting timeout to 0 is the
-  // equivalent of setting it to infinity.
-  if (time_spent_settled > settle_time) {
-    return (true);
+bool PID::is_settled(){
+  if (time_spent_running>timeout && timeout != 0){
+    return(true);
+  } // If timeout does equal 0, the move will never actually time out. Setting timeout to 0 is the 
+    // equivalent of setting it to infinity.
+  if (time_spent_settled>settle_time){
+    return(true);
   }
-  return (false);
+  return(false);
 }

@@ -7,7 +7,8 @@
  * update period is 10ms or 100Hz.
  */
 
-class PID {
+class PID
+{
 public:
   float error = 0;
   float kp = 0;
@@ -26,12 +27,9 @@ public:
 
   PID(float error, float kp, float ki, float kd, float starti);
 
-  PID(float error, float kp, float ki, float kd, float starti,
-      float settle_error, float settle_time, float timeout);
+  PID(float error, float kp, float ki, float kd, float starti, float settle_error, float settle_time, float timeout);
 
-  PID(float error, float kp, float ki, float kd, float starti,
-      float settle_error, float settle_time, float timeout,
-      float update_period);
+  PID(float error, float kp, float ki, float kd, float starti, float settle_error, float settle_time, float timeout, float update_period);
 
   float compute(float error);
 

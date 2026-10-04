@@ -84,13 +84,11 @@ void odom_test() {
   chassis.set_coordinates(0, 0, 0);
   while (true) {
     Brain.Screen.clearScreen();
-    Brain.Screen.printAt(5, 20, "X: %f", chassis.get_X_position());
-    Brain.Screen.printAt(5, 40, "Y: %f", chassis.get_Y_position());
-    Brain.Screen.printAt(5, 60, "Heading: %f", chassis.get_absolute_heading());
-    Brain.Screen.printAt(5, 80, "ForwardTracker: %f",
-                         chassis.get_ForwardTracker_position());
-    Brain.Screen.printAt(5, 100, "SidewaysTracker: %f",
-                         chassis.get_SidewaysTracker_position());
+    Brain.Screen.printAt(5,20, "X: %f", chassis.get_X_position());
+    Brain.Screen.printAt(5,40, "Y: %f", chassis.get_Y_position());
+    Brain.Screen.printAt(5,60, "Heading: %f", chassis.get_absolute_heading());
+    Brain.Screen.printAt(5,80, "ForwardTracker: %f", chassis.get_ForwardTracker_position());
+    Brain.Screen.printAt(5,100, "SidewaysTracker: %f", chassis.get_SidewaysTracker_position());
     task::sleep(20);
   }
 }
@@ -103,8 +101,8 @@ void tank_odom_test() {
   odom_constants();
   chassis.set_coordinates(0, 0, 0);
   chassis.turn_to_point(24, 24);
-  chassis.drive_to_point(24, 24);
-  chassis.drive_to_point(0, 0);
+  chassis.drive_to_point(24,24);
+  chassis.drive_to_point(0,0);
   chassis.turn_to_angle(0);
 }
 
