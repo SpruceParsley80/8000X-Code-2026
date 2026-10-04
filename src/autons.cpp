@@ -136,19 +136,26 @@ void holonomic_odom_test(){
   chassis.holonomic_drive_to_pose(0, 0, 0);
 }
 
-void match_auton(){
+void match_auton(){ //test version
   //change the toggle
   chassis.turn_to_angle(0);
   chassis.drive_distance(5);
   chassis.drive_distance(-5);
   chassis.drive_distance(5);
   chassis.drive_distance(-5);
+  //go to the first scoring object
   chassis.turn_to_angle(45);
   Intake.spin(forward);
   chassis.drive_distance(30);
   Intake.stop(brake);
   chassis.turn_to_angle(180);
   Intake.spin(forward);
-  chassis.drive_distance(30);
+  //score
+  Claw_Piston.set(true);
   moveLift(1);
+  chassis.drive_distance(30);
+  toggleArm();
+  moveLift(0);
+  Claw_Piston.set(false);
+  toggleArm();
 }
