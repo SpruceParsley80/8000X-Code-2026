@@ -40,4 +40,4 @@ void moveLift(int);
 
 void toggleArm();
 
-void  vexcodeInit();
+void vexcodeInit();

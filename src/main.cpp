@@ -36,7 +36,7 @@ Drive chassis(
   // TANK_TWO_ROTATION
   // HOLONOMIC_TWO_ENCODER
   // HOLONOMIC_TWO_ROTATION
-  //
+  
   // Write it here:
   ZERO_TRACKER_NO_ODOM,
 
@@ -158,6 +158,7 @@ void pre_auton() {
       while (Brain.Screen.pressing()) {}
       current_auton_selection = (current_auton_selection + 1) % 8;
     }
+
     task::sleep(10);
   }
 }
