@@ -222,7 +222,6 @@ void usercontrol(void) {
   bool pistonOutB = false;
   // Toggles for the arm/elbow
   bool toggleArm = false;
-  bool extendedArm = false;
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
