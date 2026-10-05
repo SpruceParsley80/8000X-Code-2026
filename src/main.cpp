@@ -1,6 +1,5 @@
 #include "vex.h"
 
-using namespace vex;
 competition Competition;
 
 /*---------------------------------------------------------------------------*/
@@ -24,85 +23,83 @@ competition Competition;
 /*---------------------------------------------------------------------------*/
 
 Drive chassis(
+  // Pick your drive setup from the list below:
+  // ZERO_TRACKER_NO_ODOM
+  // ZERO_TRACKER_ODOM
+  // TANK_ONE_FORWARD_ENCODER
+  // TANK_ONE_FORWARD_ROTATION
+  // TANK_ONE_SIDEWAYS_ENCODER
+  // TANK_ONE_SIDEWAYS_ROTATION
+  // TANK_TWO_ENCODER
+  // TANK_TWO_ROTATION
+  // HOLONOMIC_TWO_ENCODER
+  // HOLONOMIC_TWO_ROTATION
+  //
+  // Write it here:
+  ZERO_TRACKER_NO_ODOM,
 
-    // Pick your drive setup from the list below:
-    // ZERO_TRACKER_NO_ODOM
-    // ZERO_TRACKER_ODOM
-    // TANK_ONE_FORWARD_ENCODER
-    // TANK_ONE_FORWARD_ROTATION
-    // TANK_ONE_SIDEWAYS_ENCODER
-    // TANK_ONE_SIDEWAYS_ROTATION
-    // TANK_TWO_ENCODER
-    // TANK_TWO_ROTATION
-    // HOLONOMIC_TWO_ENCODER
-    // HOLONOMIC_TWO_ROTATION
-    //
-    // Write it here:
-    ZERO_TRACKER_NO_ODOM,
+  // Add the names of your Drive motors into the motor groups below, separated by commas, i.e. motor_group(Motor1,Motor2,Motor3).
+  // You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
-    // Add the names of your Drive motors into the motor groups below, separated by commas, i.e. motor_group(Motor1,Motor2,Motor3).
-    // You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
+  // Left Motors:
+  motor_group(),
 
-    // Left Motors:
-    motor_group(),
+  // Right Motors:
+  motor_group(),
 
-    // Right Motors:
-    motor_group(),
+  // Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
+  PORT1,
 
-    // Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-    PORT1,
+  // Input your wheel diameter. (4" omnis are actually closer to 4.125"):
+  3.25,
 
-    // Input your wheel diameter. (4" omnis are actually closer to 4.125"):
-    3.25,
+  // External ratio, must be in decimal, in the format of input teeth/output teeth.
+  // If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
+  // If the motor drives the wheel directly, this value is 1:
+  0.6,
 
-    // External ratio, must be in decimal, in the format of input teeth/output teeth.
-    // If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
-    // If the motor drives the wheel directly, this value is 1:
-    0.6,
+  // Gyro scale, this is what your gyro reads when you spin the robot 360 degrees.
+  // For most cases 360 will do fine here, but this scale factor can be very helpful when precision is necessary.
+  360,
 
-    // Gyro scale, this is what your gyro reads when you spin the robot 360 degrees.
-    // For most cases 360 will do fine here, but this scale factor can be very helpful when precision is necessary.
-    360,
+  /*---------------------------------------------------------------------------*/
+  /*                                  PAUSE!                                   */
+  /*                                                                           */
+  /*  The rest of the drive constructor is for robots using POSITION TRACKING. */
+  /*  If you are not using position tracking, leave the rest of the values as  */
+  /*  they are.                                                                */
+  /*---------------------------------------------------------------------------*/
 
-    /*---------------------------------------------------------------------------*/
-    /*                                  PAUSE!                                   */
-    /*                                                                           */
-    /*  The rest of the drive constructor is for robots using POSITION TRACKING. */
-    /*  If you are not using position tracking, leave the rest of the values as  */
-    /*  they are.                                                                */
-    /*---------------------------------------------------------------------------*/
+  // If you are using ZERO_TRACKER_ODOM, you ONLY need to adjust the FORWARD TRACKER CENTER DISTANCE.
 
-    // If you are using ZERO_TRACKER_ODOM, you ONLY need to adjust the FORWARD TRACKER CENTER DISTANCE.
+  // FOR HOLONOMIC DRIVES ONLY: Input your drive motors by position. This is only necessary for holonomic drives, otherwise this section can be left alone.
+  // LF:      //RF:
+  PORT1, -PORT2,
 
-    // FOR HOLONOMIC DRIVES ONLY: Input your drive motors by position. This is only necessary for holonomic drives, otherwise this section can be left alone.
-    // LF:      //RF:
-    PORT1, -PORT2,
+  // LB:      //RB:
+  PORT3, -PORT4,
 
-    // LB:      //RB:
-    PORT3, -PORT4,
+  // If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
+  // If this is a rotation sensor, enter it in "PORT1" format, inputting the port below.
+  // If this is an encoder, enter the port as an integer. Triport A will be a "1", Triport B will be a "2", etc.
+  3,
 
-    // If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
-    // If this is a rotation sensor, enter it in "PORT1" format, inputting the port below.
-    // If this is an encoder, enter the port as an integer. Triport A will be a "1", Triport B will be a "2", etc.
-    3,
+  // Input the Forward Tracker diameter (reverse it to make the direction switch):
+  2.75,
 
-    // Input the Forward Tracker diameter (reverse it to make the direction switch):
-    2.75,
+  // Input Forward Tracker center distance (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
+  // For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
+  // This distance is in inches:
+  -2,
 
-    // Input Forward Tracker center distance (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
-    // For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
-    // This distance is in inches:
-    -2,
+  // Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
+  1,
 
-    // Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
-    1,
+  // Sideways tracker diameter (reverse to make the direction switch):
+  -2.75,
 
-    // Sideways tracker diameter (reverse to make the direction switch):
-    -2.75,
-
-    // Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
-    5.5
-
+  // Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
+  5.5
 );
 
 int current_auton_selection = 0;
@@ -114,7 +111,6 @@ bool auto_started = false;
  * may need, like resetting pneumatic components. You can rename these autons to
  * be more descriptive, if you like.
  */
-
 void pre_auton() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
@@ -127,40 +123,15 @@ void pre_auton() {
     Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
     Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
     Brain.Screen.printAt(5, 100, "%f", chassis.get_absolute_heading());
-    Brain.Screen.printAt(5, 120, "Selected Auton:");
-    switch (current_auton_selection) {
-    case 0:
-      Brain.Screen.printAt(5, 140, "Auton 1");
-      break;
-    case 1:
-      Brain.Screen.printAt(5, 140, "Auton 2");
-      break;
-    case 2:
-      Brain.Screen.printAt(5, 140, "Auton 3");
-      break;
-    case 3:
-      Brain.Screen.printAt(5, 140, "Auton 4");
-      break;
-    case 4:
-      Brain.Screen.printAt(5, 140, "Auton 5");
-      break;
-    case 5:
-      Brain.Screen.printAt(5, 140, "Auton 6");
-      break;
-    case 6:
-      Brain.Screen.printAt(5, 140, "Auton 7");
-      break;
-    case 7:
-      Brain.Screen.printAt(5, 140, "Auton 8");
-      break;
-    }
+    Brain.Screen.printAt(5, 120, "Selected Auton: Auton %d", current_auton_selection + 1);
+
     if (Brain.Screen.pressing()) {
       while (Brain.Screen.pressing()) {
+        task::sleep(20);
       }
-      current_auton_selection++;
-    } else if (current_auton_selection == 8) {
-      current_auton_selection = 0;
+      current_auton_selection = (current_auton_selection + 1) % 8;
     }
+
     task::sleep(10);
   }
 }
@@ -171,8 +142,7 @@ void pre_auton() {
  * drive_test(), for example, with your own auton function you created in
  * autons.cpp and declared in autons.h.
  */
-
-void autonomous(void) {
+void autonomous() {
   auto_started = true;
   switch (current_auton_selection) {
   case 0:
@@ -211,9 +181,9 @@ void autonomous(void) {
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
-
-void usercontrol(void) {
+void usercontrol() {
   // User control code here, inside the loop
+
   // Toggles for the winch
   bool toggleA = false;
   bool pistonOut = false;
@@ -222,7 +192,7 @@ void usercontrol(void) {
   bool pistonOutB = false;
   // Toggles for the arm/elbow
   bool toggleArm = false;
-  while (1) {
+  while (true) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.
@@ -246,7 +216,6 @@ void usercontrol(void) {
     // For winch
     if (Controller.ButtonA.pressing()) {
       if (!toggleA) {
-
         Winch_Piston.set(pistonOut);
         toggleA = true;
       }
@@ -264,7 +233,7 @@ void usercontrol(void) {
       toggleB = false;
     }
 
-    // for arm
+    // For arm
     if (Controller.ButtonL1.pressing()) {
       if (!toggleArm) {
         elbow.spin(forward);
@@ -276,14 +245,11 @@ void usercontrol(void) {
       toggleArm = false;
     }
 
-    wait(20, msec); // Sleep the task for a short amount of time to
-                    // prevent wasted resources.
+    wait(20, msec); // Sleep the task for a short amount of time to prevent wasted resources.
   }
 }
 
-//
 // Main will set up the competition functions and callbacks.
-//
 int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
