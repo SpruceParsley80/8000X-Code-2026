@@ -10,4 +10,7 @@ IndentWidth: 2
 TabWidth: 2
 AlignAfterOpenBracket: BlockIndent
 ContinuationIndentWidth: 2
+BreakConstructorInitializers: AfterColon
+ConstructorInitializerIndentWidth: 2
+PackConstructorInitializers: Never
 ...
