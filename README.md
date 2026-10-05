@@ -1,7 +1,9 @@
 The Robohawks 8000X department. Coming soon.
-<br>
+
+\
 Make sure that you have the VEX Robotics extension on Visual Studio Code!
-<br>
+
+\
 If you want to use clang-format, first install clang-format:
 
 Windows: `winget install -e --id LLVM.LLVM`
