@@ -1,6 +1,6 @@
 #include "vex.h"
 
-competition Competition;
+vex::competition Competition;
 
 /*---------------------------------------------------------------------------*/
 /*                             VEXcode Config                                */
@@ -42,13 +42,13 @@ Drive chassis(
   // You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
   // Left Motors:
-  motor_group(),
+  vex::motor_group(),
 
   // Right Motors:
-  motor_group(),
+  vex::motor_group(),
 
   // Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-  PORT1,
+  vex::PORT1,
 
   // Input your wheel diameter. (4" omnis are actually closer to 4.125"):
   3.25,
@@ -74,10 +74,10 @@ Drive chassis(
 
   // FOR HOLONOMIC DRIVES ONLY: Input your drive motors by position. This is only necessary for holonomic drives, otherwise this section can be left alone.
   // LF:      //RF:
-  PORT1, -PORT2,
+  vex::PORT1, -vex::PORT2,
 
   // LB:      //RB:
-  PORT3, -PORT4,
+  vex::PORT3, -vex::PORT4,
 
   // If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
   // If this is a rotation sensor, enter it in "PORT1" format, inputting the port below.
@@ -127,12 +127,12 @@ void pre_auton() {
 
     if (Brain.Screen.pressing()) {
       while (Brain.Screen.pressing()) {
-        task::sleep(20);
+        vex::task::sleep(20);
       }
       current_auton_selection = (current_auton_selection + 1) % 8;
     }
 
-    task::sleep(10);
+    vex::task::sleep(10);
   }
 }
 
@@ -206,9 +206,9 @@ void usercontrol() {
     // or chassis.control_holonomic(); for holo drive.
     chassis.control_arcade();
     if (Controller.ButtonR2.pressing()) {
-      Intake.spin(fwd);
+      Intake.spin(vex::fwd);
     } else if (Controller.ButtonR1.pressing()) {
-      Intake.spin(reverse);
+      Intake.spin(vex::reverse);
     } else {
       Intake.stop();
     }
@@ -236,16 +236,16 @@ void usercontrol() {
     // For arm
     if (Controller.ButtonL1.pressing()) {
       if (!toggleArm) {
-        elbow.spin(forward);
-        wait(ARM_ROTATION_TIME_CONSTANT, msec);
-        elbow.stop(brake);
+        elbow.spin(vex::forward);
+        wait(ARM_ROTATION_TIME_CONSTANT, vex::msec);
+        elbow.stop(vex::brake);
         toggleArm = true;
       }
     } else {
       toggleArm = false;
     }
 
-    wait(20, msec); // Sleep the task for a short amount of time to prevent wasted resources.
+    wait(20, vex::msec); // Sleep the task for a short amount of time to prevent wasted resources.
   }
 }
 
@@ -260,6 +260,6 @@ int main() {
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
-    wait(100, msec);
+    wait(100, vex::msec);
   }
 }

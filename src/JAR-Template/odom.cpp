@@ -12,7 +12,6 @@
  * @param ForwardTracker_center_distance A horizontal distance to the wheel center in inches.
  * @param SidewaysTracker_center_distance A vertical distance to the wheel center in inches.
  */
-
 void Odom::set_physical_distances(float ForwardTracker_center_distance, float SidewaysTracker_center_distance) {
   this->ForwardTracker_center_distance = ForwardTracker_center_distance;
   this->SidewaysTracker_center_distance = SidewaysTracker_center_distance;
@@ -30,7 +29,6 @@ void Odom::set_physical_distances(float ForwardTracker_center_distance, float Si
  * @param ForwardTracker_position Current position of the sensor in inches.
  * @param SidewaysTracker_position Current position of the sensor in inches.
  */
-
 void Odom::set_position(float X_position, float Y_position, float orientation_deg, float ForwardTracker_position, float SidewaysTracker_position) {
   this->ForwardTracker_position = ForwardTracker_position;
   this->SideWaysTracker_position = SidewaysTracker_position;
@@ -50,7 +48,6 @@ void Odom::set_position(float X_position, float Y_position, float orientation_de
  * @param SidewaysTracker_position Current position of the sensor in inches.
  * @param orientation_deg Field-centered, clockwise-positive, orientation.
  */
-
 void Odom::update_position(float ForwardTracker_position, float SidewaysTracker_position, float orientation_deg) {
   // this-> always refers to the old version of the variable, so subtracting this->x from x gives delta x.
   float Forward_delta = ForwardTracker_position - this->ForwardTracker_position;

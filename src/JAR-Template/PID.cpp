@@ -10,7 +10,6 @@
  * @param kd Derivative constant.
  * @param starti Maximum error to start integrating.
  */
-
 PID::PID(float error, float kp, float ki, float kd, float starti) : error(error),
                                                                     kp(kp),
                                                                     ki(ki),
@@ -34,7 +33,6 @@ PID::PID(float error, float kp, float ki, float kd, float starti) : error(error)
  * @param settle_time Minimum time to be considered settled.
  * @param timeout Time after which to give up and move on.
  */
-
 PID::PID(float error, float kp, float ki, float kd, float starti,
          float settle_error, float settle_time, float timeout) : error(error),
                                                                  kp(kp),
@@ -60,7 +58,6 @@ PID::PID(float error, float kp, float ki, float kd, float starti,
  * @param timeout Time after which to give up and move on.
  * @param update_period Loop delay time in ms.
  */
-
 PID::PID(float error, float kp, float ki, float kd, float starti,
          float settle_error, float settle_time, float timeout, float update_period) : error(error),
                                                                                       kp(kp),
@@ -82,7 +79,6 @@ PID::PID(float error, float kp, float ki, float kd, float starti,
  * @param error Difference in desired and current position.
  * @return Output power.
  */
-
 float PID::compute(float error) {
   if (fabs(error) < starti) {
     accumulated_error += error;
@@ -115,7 +111,6 @@ float PID::compute(float error) {
  *
  * @return Whether the movement is settled.
  */
-
 bool PID::is_settled() {
   if (time_spent_running > timeout && timeout != 0) {
     return (true);

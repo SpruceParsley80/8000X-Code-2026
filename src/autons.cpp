@@ -7,7 +7,6 @@
  * drive, heading, turning, and swinging, as well as the PID and
  * exit conditions, check the docs.
  */
-
 void default_constants() {
   // Each constant set is in the form of (maxVoltage, kP, kI, kD, startI).
   chassis.set_drive_constants(10, 1.5, 0, 10, 0);
@@ -26,7 +25,6 @@ void default_constants() {
  * For functions like drive_to_point(), it's often better to have
  * a slower max_voltage and greater settle_error than you would otherwise.
  */
-
 void odom_constants() {
   default_constants();
   chassis.heading_max_voltage = 10;
@@ -39,7 +37,6 @@ void odom_constants() {
 /**
  * The expected behavior is to return to the start position.
  */
-
 void drive_test() {
   chassis.drive_distance(6);
   chassis.drive_distance(12);
@@ -50,7 +47,6 @@ void drive_test() {
 /**
  * The expected behavior is to return to the start angle, after making a complete turn.
  */
-
 void turn_test() {
   chassis.turn_to_angle(5);
   chassis.turn_to_angle(30);
@@ -62,7 +58,6 @@ void turn_test() {
 /**
  * Should swing in a fun S shape.
  */
-
 void swing_test() {
   chassis.left_swing_to_angle(90);
   chassis.right_swing_to_angle(0);
@@ -71,7 +66,6 @@ void swing_test() {
 /**
  * A little of this, a little of that; it should end roughly where it started.
  */
-
 void full_test() {
   chassis.drive_distance(24);
   chassis.turn_to_angle(-45);
@@ -86,17 +80,16 @@ void full_test() {
  * so you can check if they are accurate to life. Push the robot around and
  * see if the coordinates increase like you'd expect.
  */
-
 void odom_test() {
   chassis.set_coordinates(0, 0, 0);
-  while (1) {
+  while (true) {
     Brain.Screen.clearScreen();
     Brain.Screen.printAt(5, 20, "X: %f", chassis.get_X_position());
     Brain.Screen.printAt(5, 40, "Y: %f", chassis.get_Y_position());
     Brain.Screen.printAt(5, 60, "Heading: %f", chassis.get_absolute_heading());
     Brain.Screen.printAt(5, 80, "ForwardTracker: %f", chassis.get_ForwardTracker_position());
     Brain.Screen.printAt(5, 100, "SidewaysTracker: %f", chassis.get_SidewaysTracker_position());
-    task::sleep(20);
+    vex::task::sleep(20);
   }
 }
 
@@ -104,7 +97,6 @@ void odom_test() {
  * Should end in the same place it began, but the second movement
  * will be curved while the first is straight.
  */
-
 void tank_odom_test() {
   odom_constants();
   chassis.set_coordinates(0, 0, 0);
@@ -115,10 +107,8 @@ void tank_odom_test() {
 }
 
 /**
- * Drives in a square while making a full turn in the process. Should
- * end where it started.
+ * Drives in a square while making a full turn in the process. Should end where it started.
  */
-
 void holonomic_odom_test() {
   odom_constants();
   chassis.set_coordinates(0, 0, 0);
@@ -137,11 +127,11 @@ void match_auton() { // test version
   chassis.drive_distance(-5);
   // go to the first scoring object
   chassis.turn_to_angle(45);
-  Intake.spin(forward);
+  Intake.spin(vex::forward);
   chassis.drive_distance(30);
-  Intake.stop(brake);
+  Intake.stop(vex::brake);
   chassis.turn_to_angle(180);
-  Intake.spin(forward);
+  Intake.spin(vex::forward);
   // score
   Claw_Piston.set(true);
   moveLift(1);

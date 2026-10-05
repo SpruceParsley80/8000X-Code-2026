@@ -24,8 +24,7 @@
  * @param SidewaysTracker_diameter Diameter in inches.
  * @param SidewaysTracker_center_distance Vertical distance in inches.
  */
-
-Drive::Drive(enum ::drive_setup drive_setup, motor_group DriveL, motor_group DriveR,
+Drive::Drive(enum ::drive_setup drive_setup, vex::motor_group DriveL, vex::motor_group DriveR,
              int gyro_port, float wheel_diameter, float wheel_ratio, float gyro_scale,
              int DriveLF_port, int DriveRF_port, int DriveLB_port, int DriveRB_port,
              int ForwardTracker_port, float ForwardTracker_diameter, float ForwardTracker_center_distance,
@@ -42,7 +41,7 @@ Drive::Drive(enum ::drive_setup drive_setup, motor_group DriveL, motor_group Dri
                                                                                                                 drive_setup(drive_setup),
                                                                                                                 DriveL(DriveL),
                                                                                                                 DriveR(DriveR),
-                                                                                                                Gyro(inertial(gyro_port)),
+                                                                                                                Gyro(vex::inertial(gyro_port)),
                                                                                                                 DriveLF(abs(DriveLF_port), is_reversed(DriveLF_port)),
                                                                                                                 DriveRF(abs(DriveRF_port), is_reversed(DriveRF_port)),
                                                                                                                 DriveLB(abs(DriveLB_port), is_reversed(DriveLB_port)),
@@ -67,10 +66,9 @@ Drive::Drive(enum ::drive_setup drive_setup, motor_group DriveL, motor_group Dri
  * @param leftVoltage Voltage out of 12.
  * @param rightVoltage Voltage out of 12.
  */
-
 void Drive::drive_with_voltage(float leftVoltage, float rightVoltage) {
-  DriveL.spin(fwd, leftVoltage, volt);
-  DriveR.spin(fwd, rightVoltage, volt);
+  DriveL.spin(vex::fwd, leftVoltage, vex::volt);
+  DriveR.spin(vex::fwd, rightVoltage, vex::volt);
 }
 
 /**
@@ -83,7 +81,6 @@ void Drive::drive_with_voltage(float leftVoltage, float rightVoltage) {
  * @param turn_kd Derivative constant.
  * @param turn_starti Minimum angle in degrees for integral to begin.
  */
-
 void Drive::set_turn_constants(float turn_max_voltage, float turn_kp, float turn_ki, float turn_kd, float turn_starti) {
   this->turn_max_voltage = turn_max_voltage;
   this->turn_kp = turn_kp;
@@ -103,7 +100,6 @@ void Drive::set_turn_constants(float turn_max_voltage, float turn_kp, float turn
  * @param drive_kd Derivative constant.
  * @param drive_starti Minimum distance in inches for integral to begin
  */
-
 void Drive::set_drive_constants(float drive_max_voltage, float drive_kp, float drive_ki, float drive_kd, float drive_starti) {
   this->drive_max_voltage = drive_max_voltage;
   this->drive_kp = drive_kp;
@@ -124,7 +120,6 @@ void Drive::set_drive_constants(float drive_max_voltage, float drive_kp, float d
  * @param heading_kd Derivative constant.
  * @param heading_starti Minimum angle in degrees for integral to begin.
  */
-
 void Drive::set_heading_constants(float heading_max_voltage, float heading_kp, float heading_ki, float heading_kd, float heading_starti) {
   this->heading_max_voltage = heading_max_voltage;
   this->heading_kp = heading_kp;
@@ -144,7 +139,6 @@ void Drive::set_heading_constants(float heading_max_voltage, float heading_kp, f
  * @param swing_kd Derivative constant.
  * @param swing_starti Minimum angle in degrees for integral to begin.
  */
-
 void Drive::set_swing_constants(float swing_max_voltage, float swing_kp, float swing_ki, float swing_kd, float swing_starti) {
   this->swing_max_voltage = swing_max_voltage;
   this->swing_kp = swing_kp;
@@ -162,7 +156,6 @@ void Drive::set_swing_constants(float swing_max_voltage, float swing_kp, float s
  * @param turn_settle_time Time to be considered settled in milliseconds.
  * @param turn_timeout Time before quitting and move on in milliseconds.
  */
-
 void Drive::set_turn_exit_conditions(float turn_settle_error, float turn_settle_time, float turn_timeout) {
   this->turn_settle_error = turn_settle_error;
   this->turn_settle_time = turn_settle_time;
@@ -178,7 +171,6 @@ void Drive::set_turn_exit_conditions(float turn_settle_error, float turn_settle_
  * @param drive_settle_time Time to be considered settled in milliseconds.
  * @param drive_timeout Time before quitting and move on in milliseconds.
  */
-
 void Drive::set_drive_exit_conditions(float drive_settle_error, float drive_settle_time, float drive_timeout) {
   this->drive_settle_error = drive_settle_error;
   this->drive_settle_time = drive_settle_time;
@@ -194,7 +186,6 @@ void Drive::set_drive_exit_conditions(float drive_settle_error, float drive_sett
  * @param swing_settle_time Time to be considered settled in milliseconds.
  * @param swing_timeout Time before quitting and move on in milliseconds.
  */
-
 void Drive::set_swing_exit_conditions(float swing_settle_error, float swing_settle_time, float swing_timeout) {
   this->swing_settle_error = swing_settle_error;
   this->swing_settle_time = swing_settle_time;
@@ -206,7 +197,6 @@ void Drive::set_swing_exit_conditions(float swing_settle_error, float swing_sett
  *
  * @return Gyro scale-corrected heading in the range [0, 360).
  */
-
 float Drive::get_absolute_heading() {
   return (reduce_0_to_360(Gyro.rotation() * 360.0 / gyro_scale));
 }
@@ -216,9 +206,8 @@ float Drive::get_absolute_heading() {
  *
  * @return Left position in inches.
  */
-
 float Drive::get_left_position_in() {
-  return (DriveL.position(deg) * drive_in_to_deg_ratio);
+  return (DriveL.position(vex::deg) * drive_in_to_deg_ratio);
 }
 
 /**
@@ -226,9 +215,8 @@ float Drive::get_left_position_in() {
  *
  * @return Right position in inches.
  */
-
 float Drive::get_right_position_in() {
-  return (DriveR.position(deg) * drive_in_to_deg_ratio);
+  return (DriveR.position(vex::deg) * drive_in_to_deg_ratio);
 }
 
 /**
@@ -236,7 +224,6 @@ float Drive::get_right_position_in() {
  *
  * @param mode hold, brake, or stop
  */
-
 void Drive::drive_stop(vex::brakeType mode) {
   DriveL.stop(mode);
   DriveR.stop(mode);
@@ -249,7 +236,6 @@ void Drive::drive_stop(vex::brakeType mode) {
  *
  * @param angle Desired angle in degrees.
  */
-
 void Drive::turn_to_angle(float angle) {
   turn_to_angle(angle, turn_max_voltage, turn_settle_error, turn_settle_time, turn_timeout, turn_kp, turn_ki, turn_kd, turn_starti);
 }
@@ -269,7 +255,7 @@ void Drive::turn_to_angle(float angle, float turn_max_voltage, float turn_settle
     float output = turnPID.compute(error);
     output = clamp(output, -turn_max_voltage, turn_max_voltage);
     drive_with_voltage(output, -output);
-    task::sleep(10);
+    vex::task::sleep(10);
   }
 }
 
@@ -284,7 +270,6 @@ void Drive::turn_to_angle(float angle, float turn_max_voltage, float turn_settle
  * @param distance Desired distance in inches.
  * @param heading Desired heading in degrees.
  */
-
 void Drive::drive_distance(float distance) {
   drive_distance(distance, get_absolute_heading(), drive_max_voltage, heading_max_voltage, drive_settle_error, drive_settle_time, drive_timeout, drive_kp, drive_ki, drive_kd, drive_starti, heading_kp, heading_ki, heading_kd, heading_starti);
 }
@@ -317,7 +302,7 @@ void Drive::drive_distance(float distance, float heading, float drive_max_voltag
     heading_output = clamp(heading_output, -heading_max_voltage, heading_max_voltage);
 
     drive_with_voltage(drive_output + heading_output, drive_output - heading_output);
-    task::sleep(10);
+    vex::task::sleep(10);
   }
 }
 
@@ -339,9 +324,9 @@ void Drive::left_swing_to_angle(float angle, float swing_max_voltage, float swin
     float error = reduce_negative_180_to_180(angle - get_absolute_heading());
     float output = swingPID.compute(error);
     output = clamp(output, -turn_max_voltage, turn_max_voltage);
-    DriveL.spin(fwd, output, volt);
-    DriveR.stop(hold);
-    task::sleep(10);
+    DriveL.spin(vex::fwd, output, vex::volt);
+    DriveR.stop(vex::hold);
+    vex::task::sleep(10);
   }
 }
 
@@ -355,9 +340,9 @@ void Drive::right_swing_to_angle(float angle, float swing_max_voltage, float swi
     float error = reduce_negative_180_to_180(angle - get_absolute_heading());
     float output = swingPID.compute(error);
     output = clamp(output, -turn_max_voltage, turn_max_voltage);
-    DriveR.spin(reverse, output, volt);
-    DriveL.stop(hold);
-    task::sleep(10);
+    DriveR.spin(vex::reverse, output, vex::volt);
+    DriveL.stop(vex::hold);
+    vex::task::sleep(10);
   }
 }
 
@@ -366,15 +351,14 @@ void Drive::right_swing_to_angle(float angle, float swing_max_voltage, float swi
  *
  * @return The tracker position.
  */
-
 float Drive::get_ForwardTracker_position() {
   if (drive_setup == ZERO_TRACKER_ODOM || drive_setup == TANK_ONE_SIDEWAYS_ENCODER || drive_setup == TANK_ONE_SIDEWAYS_ROTATION) {
     return (get_right_position_in());
   }
   if (drive_setup == TANK_ONE_FORWARD_ENCODER || drive_setup == TANK_TWO_ENCODER || drive_setup == HOLONOMIC_TWO_ENCODER) {
-    return (E_ForwardTracker.position(deg) * ForwardTracker_in_to_deg_ratio);
+    return (E_ForwardTracker.position(vex::deg) * ForwardTracker_in_to_deg_ratio);
   } else {
-    return (R_ForwardTracker.position(deg) * ForwardTracker_in_to_deg_ratio);
+    return (R_ForwardTracker.position(vex::deg) * ForwardTracker_in_to_deg_ratio);
   }
 }
 
@@ -383,25 +367,23 @@ float Drive::get_ForwardTracker_position() {
  *
  * @return The tracker position.
  */
-
 float Drive::get_SidewaysTracker_position() {
   if (drive_setup == TANK_ONE_FORWARD_ENCODER || drive_setup == TANK_ONE_FORWARD_ROTATION || drive_setup == ZERO_TRACKER_ODOM) {
     return (0);
   } else if (drive_setup == TANK_TWO_ENCODER || drive_setup == HOLONOMIC_TWO_ENCODER || drive_setup == TANK_ONE_SIDEWAYS_ENCODER) {
-    return (E_SidewaysTracker.position(deg) * SidewaysTracker_in_to_deg_ratio);
+    return (E_SidewaysTracker.position(vex::deg) * SidewaysTracker_in_to_deg_ratio);
   } else {
-    return (R_SidewaysTracker.position(deg) * SidewaysTracker_in_to_deg_ratio);
+    return (R_SidewaysTracker.position(vex::deg) * SidewaysTracker_in_to_deg_ratio);
   }
 }
 
 /**
  * Background task for updating the odometry.
  */
-
 void Drive::position_track() {
   while (1) {
     odom.update_position(get_ForwardTracker_position(), get_SidewaysTracker_position(), get_absolute_heading());
-    task::sleep(5);
+    vex::task::sleep(5);
   }
 }
 
@@ -413,9 +395,8 @@ void Drive::position_track() {
  *
  * @param orientation_deg Desired heading in degrees.
  */
-
 void Drive::set_heading(float orientation_deg) {
-  Gyro.setRotation(orientation_deg * gyro_scale / 360.0, deg);
+  Gyro.setRotation(orientation_deg * gyro_scale / 360.0, vex::deg);
 }
 
 /**
@@ -427,11 +408,10 @@ void Drive::set_heading(float orientation_deg) {
  * @param Y_position Robot's y in inches.
  * @param orientation_deg Desired heading in degrees.
  */
-
 void Drive::set_coordinates(float X_position, float Y_position, float orientation_deg) {
   odom.set_position(X_position, Y_position, orientation_deg, get_ForwardTracker_position(), get_SidewaysTracker_position());
   set_heading(orientation_deg);
-  odom_task = task(position_track_task);
+  odom_task = vex::task(position_track_task);
 }
 
 /**
@@ -439,7 +419,6 @@ void Drive::set_coordinates(float X_position, float Y_position, float orientatio
  *
  * @return The robot's x position in inches.
  */
-
 float Drive::get_X_position() {
   return (odom.X_position);
 }
@@ -449,7 +428,6 @@ float Drive::get_X_position() {
  *
  * @return The robot's y position in inches.
  */
-
 float Drive::get_Y_position() {
   return (odom.Y_position);
 }
@@ -465,7 +443,6 @@ float Drive::get_Y_position() {
  * @param X_position Desired x position in inches.
  * @param Y_position Desired y position in inches.
  */
-
 void Drive::drive_to_point(float X_position, float Y_position) {
   drive_to_point(X_position, Y_position, drive_min_voltage, drive_max_voltage, heading_max_voltage, drive_settle_error, drive_settle_time, drive_timeout, drive_kp, drive_ki, drive_kd, drive_starti, heading_kp, heading_ki, heading_kd, heading_starti);
 }
@@ -510,7 +487,7 @@ void Drive::drive_to_point(float X_position, float Y_position, float drive_min_v
     drive_output = clamp_min_voltage(drive_output, drive_min_voltage);
 
     drive_with_voltage(left_voltage_scaling(drive_output, heading_output), right_voltage_scaling(drive_output, heading_output));
-    task::sleep(10);
+    vex::task::sleep(10);
   }
 }
 
@@ -532,7 +509,6 @@ void Drive::drive_to_point(float X_position, float Y_position, float drive_min_v
  * @param setback Distance in inches from target by which the carrot is always pushed back.
  * @param drive_min_voltage Minimum voltage on the drive, used for chaining movements.
  */
-
 void Drive::drive_to_pose(float X_position, float Y_position, float angle) {
   drive_to_pose(X_position, Y_position, angle, boomerang_lead, boomerang_setback, drive_min_voltage, drive_max_voltage, heading_max_voltage, drive_settle_error, drive_settle_time, drive_timeout, drive_kp, drive_ki, drive_kd, drive_starti, heading_kp, heading_ki, heading_kd, heading_starti);
 }
@@ -596,7 +572,7 @@ void Drive::drive_to_pose(float X_position, float Y_position, float angle, float
     drive_output = clamp_min_voltage(drive_output, drive_min_voltage);
 
     drive_with_voltage(left_voltage_scaling(drive_output, heading_output), right_voltage_scaling(drive_output, heading_output));
-    task::sleep(10);
+    vex::task::sleep(10);
   }
 }
 
@@ -611,7 +587,6 @@ void Drive::drive_to_pose(float X_position, float Y_position, float angle, float
  * @param Y_position Desired y position in inches.
  * @param extra_angle_deg Angle turned past the desired heading in degrees.
  */
-
 void Drive::turn_to_point(float X_position, float Y_position) {
   turn_to_point(X_position, Y_position, 0, turn_max_voltage, turn_settle_error, turn_settle_time, turn_timeout, turn_kp, turn_ki, turn_kd, turn_starti);
 }
@@ -631,7 +606,7 @@ void Drive::turn_to_point(float X_position, float Y_position, float extra_angle_
     float output = turnPID.compute(error);
     output = clamp(output, -turn_max_voltage, turn_max_voltage);
     drive_with_voltage(output, -output);
-    task::sleep(10);
+    vex::task::sleep(10);
   }
 }
 
@@ -646,7 +621,6 @@ void Drive::turn_to_point(float X_position, float Y_position, float extra_angle_
  * @param Y_position Desired y position in inches.
  * @param angle Desired ending angle in degrees.
  */
-
 void Drive::holonomic_drive_to_pose(float X_position, float Y_position) {
   holonomic_drive_to_pose(X_position, Y_position, get_absolute_heading(), drive_max_voltage, heading_max_voltage, drive_settle_error, drive_settle_time, drive_timeout, drive_kp, drive_ki, drive_kd, drive_starti, heading_kp, heading_ki, heading_kd, heading_starti);
 }
@@ -678,11 +652,11 @@ void Drive::holonomic_drive_to_pose(float X_position, float Y_position, float an
 
     float heading_error = atan2(Y_position - get_Y_position(), X_position - get_X_position());
 
-    DriveLF.spin(fwd, drive_output * cos(to_rad(get_absolute_heading()) + heading_error - M_PI / 4) + turn_output, volt);
-    DriveLB.spin(fwd, drive_output * cos(-to_rad(get_absolute_heading()) - heading_error + 3 * M_PI / 4) + turn_output, volt);
-    DriveRB.spin(fwd, drive_output * cos(to_rad(get_absolute_heading()) + heading_error - M_PI / 4) - turn_output, volt);
-    DriveRF.spin(fwd, drive_output * cos(-to_rad(get_absolute_heading()) - heading_error + 3 * M_PI / 4) - turn_output, volt);
-    task::sleep(10);
+    DriveLF.spin(vex::fwd, drive_output * cos(to_rad(get_absolute_heading()) + heading_error - M_PI / 4) + turn_output, vex::volt);
+    DriveLB.spin(vex::fwd, drive_output * cos(-to_rad(get_absolute_heading()) - heading_error + 3 * M_PI / 4) + turn_output, vex::volt);
+    DriveRB.spin(vex::fwd, drive_output * cos(to_rad(get_absolute_heading()) + heading_error - M_PI / 4) - turn_output, vex::volt);
+    DriveRF.spin(vex::fwd, drive_output * cos(-to_rad(get_absolute_heading()) - heading_error + 3 * M_PI / 4) - turn_output, vex::volt);
+    vex::task::sleep(10);
   }
 }
 
@@ -690,45 +664,41 @@ void Drive::holonomic_drive_to_pose(float X_position, float Y_position, float an
  * Controls a chassis with left stick throttle and right stick turning.
  * Default deadband is 5.
  */
-
 void Drive::control_arcade() {
-  float throttle = deadband(controller(primary).Axis3.value(), 5);
-  float turn = deadband(controller(primary).Axis1.value(), 5);
-  DriveL.spin(fwd, to_volt(throttle + turn), volt);
-  DriveR.spin(fwd, to_volt(throttle - turn), volt);
+  float throttle = deadband(vex::controller(vex::primary).Axis3.value(), 5);
+  float turn = deadband(vex::controller(vex::primary).Axis1.value(), 5);
+  DriveL.spin(vex::fwd, to_volt(throttle + turn), vex::volt);
+  DriveR.spin(vex::fwd, to_volt(throttle - turn), vex::volt);
 }
 
 /**
  * Controls a chassis with left stick throttle and strafe, and right stick turning.
  * Default deadband is 5.
  */
-
 void Drive::control_holonomic() {
-  float throttle = deadband(controller(primary).Axis3.value(), 5);
-  float turn = deadband(controller(primary).Axis1.value(), 5);
-  float strafe = deadband(controller(primary).Axis4.value(), 5);
-  DriveLF.spin(fwd, to_volt(throttle + turn + strafe), volt);
-  DriveRF.spin(fwd, to_volt(throttle - turn - strafe), volt);
-  DriveLB.spin(fwd, to_volt(throttle + turn - strafe), volt);
-  DriveRB.spin(fwd, to_volt(throttle - turn + strafe), volt);
+  float throttle = deadband(vex::controller(vex::primary).Axis3.value(), 5);
+  float turn = deadband(vex::controller(vex::primary).Axis1.value(), 5);
+  float strafe = deadband(vex::controller(vex::primary).Axis4.value(), 5);
+  DriveLF.spin(vex::fwd, to_volt(throttle + turn + strafe), vex::volt);
+  DriveRF.spin(vex::fwd, to_volt(throttle - turn - strafe), vex::volt);
+  DriveLB.spin(vex::fwd, to_volt(throttle + turn - strafe), vex::volt);
+  DriveRB.spin(vex::fwd, to_volt(throttle - turn + strafe), vex::volt);
 }
 
 /**
  * Controls a chassis with left stick left drive and right stick right drive.
  * Default deadband is 5.
  */
-
 void Drive::control_tank() {
-  float leftthrottle = deadband(controller(primary).Axis3.value(), 5);
-  float rightthrottle = deadband(controller(primary).Axis2.value(), 5);
-  DriveL.spin(fwd, to_volt(leftthrottle), volt);
-  DriveR.spin(fwd, to_volt(rightthrottle), volt);
+  float leftthrottle = deadband(vex::controller(vex::primary).Axis3.value(), 5);
+  float rightthrottle = deadband(vex::controller(vex::primary).Axis2.value(), 5);
+  DriveL.spin(vex::fwd, to_volt(leftthrottle), vex::volt);
+  DriveR.spin(vex::fwd, to_volt(rightthrottle), vex::volt);
 }
 
 /**
  * Tracking task to run in the background.
  */
-
 int Drive::position_track_task() {
   chassis.position_track();
   return (0);

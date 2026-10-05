@@ -1,43 +1,39 @@
-using namespace vex;
-
 #pragma once
 
 #include "vex.h"
 
-using namespace vex;
+extern vex::brain Brain;
 
-extern brain Brain;
+extern vex::controller Controller;
 
-extern controller Controller;
+extern vex::motor LeftFront;
+extern vex::motor LeftBack;
+extern vex::motor LeftHalf;
 
-extern motor LeftFront;
-extern motor LeftBack;
-extern motor LeftHalf;
+extern vex::motor RightFront;
+extern vex::motor RightBack;
+extern vex::motor RightHalf;
 
-extern motor RightFront;
-extern motor RightBack;
-extern motor RightHalf;
+extern vex::motor elbow;
 
-extern motor elbow;
+extern vex::motor_group LeftDrive;
+extern vex::motor_group RightDrive;
 
-extern motor_group LeftDrive;
-extern motor_group RightDrive;
+extern vex::motor Intake1;
+extern vex::motor Intake2;
+extern vex::motor_group Intake;
 
-extern motor Intake1;
-extern motor Intake2;
-extern motor_group Intake;
-
-extern digital_out Winch_Piston;
-extern digital_out Claw_Piston;
+extern vex::digital_out Winch_Piston;
+extern vex::digital_out Claw_Piston;
 
 const int SCORE_LEVEL_CONSTANT = 10;       // if we use the macro, we will need to tune it
 const int ARM_ROTATION_TIME_CONSTANT = 10; // this too
 // bool armOut;
 
-void vexcodeInit(void);
+void vexcodeInit();
 
-void moveLift(int);
+void moveLift(int levels);
 
 void toggleArm();
 
-void vexcodeInit(void);
+void vexcodeInit();

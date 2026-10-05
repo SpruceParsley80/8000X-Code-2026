@@ -1,4 +1,5 @@
 #pragma once
+
 #include "vex.h"
 
 /**
@@ -6,7 +7,6 @@
  * control calculation and settling calculation. The default
  * update period is 10ms or 100Hz.
  */
-
 class PID {
 public:
   float error = 0;

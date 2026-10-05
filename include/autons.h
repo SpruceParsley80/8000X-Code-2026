@@ -1,4 +1,5 @@
 #pragma once
+
 #include "JAR-Template/drive.h"
 
 class Drive;
@@ -7,9 +8,11 @@ extern Drive chassis;
 
 void default_constants();
 
+// naming is based off of # of allied loaders on the same side of the single line as the bot
+
 void two_loader_side();
 void one_loader_side();
-// naming is based off of # of allied loaders on the same side of the single line as the bot
+
 void drive_test();
 void turn_test();
 void swing_test();

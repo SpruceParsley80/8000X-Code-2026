@@ -1,13 +1,9 @@
 #include "vex.h"
 
-using namespace vex;
-using signature = vision::signature;
-using code = vision::code;
-
 // A global instance of brain used for printing to the V5 Brain screen.
-brain Brain;
+vex::brain Brain;
 
-controller Controller = controller(primary);
+vex::controller Controller = vex::controller(vex::primary);
 
 bool armOut;
 
@@ -15,55 +11,55 @@ bool armOut;
 // motor LeftFront = motor(PORT1, ratio6_1, false);
 
 // Add your devices below, and don't forget to do the same in robot-config.h:
-motor LeftFront = motor(PORT1, ratio18_1, false); // Make sure to set the correct motor carthridge ratio and reversed flag for your motor
-motor LeftBack = motor(PORT2, ratio18_1, false);
-motor LeftHalf = motor(PORT6, ratio18_1, true); // change half direction if needed
+vex::motor LeftFront = vex::motor(vex::PORT1, vex::ratio18_1, false); // Make sure to set the correct motor carthridge ratio and reversed flag for your motor
+vex::motor LeftBack = vex::motor(vex::PORT2, vex::ratio18_1, false);
+vex::motor LeftHalf = vex::motor(vex::PORT6, vex::ratio18_1, true); // change half direction if needed
 
-motor elbow = motor(PORT16, ratio18_1, false);
+vex::motor elbow = vex::motor(vex::PORT16, vex::ratio18_1, false);
 
-motor RightFront = motor(PORT3, ratio18_1, true);
-motor RightBack = motor(PORT4, ratio18_1, true);
-motor RightHalf = motor(PORT5, ratio18_1, false);
+vex::motor RightFront = vex::motor(vex::PORT3, vex::ratio18_1, true);
+vex::motor RightBack = vex::motor(vex::PORT4, vex::ratio18_1, true);
+vex::motor RightHalf = vex::motor(vex::PORT5, vex::ratio18_1, false);
 
-motor_group LeftDrive = motor_group(LeftFront, LeftBack, LeftHalf);
-motor_group RightDrive = motor_group(RightFront, RightBack, RightHalf);
-motor Intake1 = motor(PORT1, ratio18_1, false);
-motor Intake2 = motor(PORT15, ratio18_1, false);
-motor_group Intake = motor_group(Intake1, Intake2);
-digital_out Winch_Piston = digital_out(Brain.ThreeWirePort.A);
-digital_out Claw_Piston = digital_out(Brain.ThreeWirePort.B);
+vex::motor_group LeftDrive = vex::motor_group(LeftFront, LeftBack, LeftHalf);
+vex::motor_group RightDrive = vex::motor_group(RightFront, RightBack, RightHalf);
+vex::motor Intake1 = vex::motor(vex::PORT1, vex::ratio18_1, false);
+vex::motor Intake2 = vex::motor(vex::PORT15, vex::ratio18_1, false);
+vex::motor_group Intake = vex::motor_group(Intake1, Intake2);
+vex::digital_out Winch_Piston = vex::digital_out(Brain.ThreeWirePort.A);
+vex::digital_out Claw_Piston = vex::digital_out(Brain.ThreeWirePort.B);
 
 // Add your devices below, and don't forget to do the same in robot-config.h:
 
-void vexcodeInit(void) {
+void vexcodeInit() {
   // nothing to initialize
 }
 
-// a simple, probably not actually functional macro thing for lifting the lift in units of cups
+// A simple, probably not actually functional macro thing for lifting the lift in units of cups
 void moveLift(int levels) {
   if (levels >= 0) {
     Winch_Piston.set(1);
-    Intake.spin(forward);
-    wait(levels * SCORE_LEVEL_CONSTANT, msec);
-    Intake.stop(brake);
+    Intake.spin(vex::forward);
+    wait(levels * SCORE_LEVEL_CONSTANT, vex::msec);
+    Intake.stop(vex::brake);
     Winch_Piston.set(0);
   } else {
     Winch_Piston.set(1);
-    Intake.spin(reverse);
-    wait(levels * SCORE_LEVEL_CONSTANT, msec);
-    Intake.stop(brake);
+    Intake.spin(vex::reverse);
+    wait(levels * SCORE_LEVEL_CONSTANT, vex::msec);
+    Intake.stop(vex::brake);
     Winch_Piston.set(0);
   }
 }
 
 void toggleArm() {
   if (armOut) {
-    elbow.spin(forward);
-    wait(ARM_ROTATION_TIME_CONSTANT, msec);
-    elbow.stop(brake);
+    elbow.spin(vex::forward);
+    wait(ARM_ROTATION_TIME_CONSTANT, vex::msec);
+    elbow.stop(vex::brake);
   } else {
-    elbow.spin(reverse);
-    wait(ARM_ROTATION_TIME_CONSTANT, msec);
-    elbow.stop(brake);
+    elbow.spin(vex::reverse);
+    wait(ARM_ROTATION_TIME_CONSTANT, vex::msec);
+    elbow.stop(vex::brake);
   }
 }
