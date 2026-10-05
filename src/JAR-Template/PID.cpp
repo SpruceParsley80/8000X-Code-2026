@@ -33,15 +33,14 @@ PID::PID(float error, float kp, float ki, float kd, float starti) : error(error)
  * @param settle_time Minimum time to be considered settled.
  * @param timeout Time after which to give up and move on.
  */
-PID::PID(float error, float kp, float ki, float kd, float starti,
-         float settle_error, float settle_time, float timeout) : error(error),
-                                                                 kp(kp),
-                                                                 ki(ki),
-                                                                 kd(kd),
-                                                                 starti(starti),
-                                                                 settle_error(settle_error),
-                                                                 settle_time(settle_time),
-                                                                 timeout(timeout) {};
+PID::PID(float error, float kp, float ki, float kd, float starti, float settle_error, float settle_time, float timeout) : error(error),
+                                                                                                                          kp(kp),
+                                                                                                                          ki(ki),
+                                                                                                                          kd(kd),
+                                                                                                                          starti(starti),
+                                                                                                                          settle_error(settle_error),
+                                                                                                                          settle_time(settle_time),
+                                                                                                                          timeout(timeout) {};
 
 /**
  * PID constructor with custom update period.
@@ -58,16 +57,15 @@ PID::PID(float error, float kp, float ki, float kd, float starti,
  * @param timeout Time after which to give up and move on.
  * @param update_period Loop delay time in ms.
  */
-PID::PID(float error, float kp, float ki, float kd, float starti,
-         float settle_error, float settle_time, float timeout, float update_period) : error(error),
-                                                                                      kp(kp),
-                                                                                      ki(ki),
-                                                                                      kd(kd),
-                                                                                      starti(starti),
-                                                                                      settle_error(settle_error),
-                                                                                      settle_time(settle_time),
-                                                                                      timeout(timeout),
-                                                                                      update_period(update_period) {};
+PID::PID(float error, float kp, float ki, float kd, float starti, float settle_error, float settle_time, float timeout, float update_period) : error(error),
+                                                                                                                                               kp(kp),
+                                                                                                                                               ki(ki),
+                                                                                                                                               kd(kd),
+                                                                                                                                               starti(starti),
+                                                                                                                                               settle_error(settle_error),
+                                                                                                                                               settle_time(settle_time),
+                                                                                                                                               timeout(timeout),
+                                                                                                                                               update_period(update_period) {};
 
 /**
  * Computes the output power based on the error.

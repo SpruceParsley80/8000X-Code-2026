@@ -6,4 +6,8 @@ SpacesInLineCommentPrefix:
   Minimum: 1
   Maximum: 1
 MaxEmptyLinesToKeep: 1
+IndentWidth: 2
+TabWidth: 2
+AlignAfterOpenBracket: BlockIndent
+ContinuationIndentWidth: 2
 ...

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "vex.h"
 #include "odom.h"
+#include "vex.h"
 
 enum drive_setup {
   ZERO_TRACKER_NO_ODOM,
