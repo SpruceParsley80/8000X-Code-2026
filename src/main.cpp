@@ -146,7 +146,7 @@ void autonomous() {
   auto_started = true;
   switch (current_auton_selection) {
   case 0:
-    match_auton();
+    one_loader_side();
     break;
   case 1:
     drive_test();

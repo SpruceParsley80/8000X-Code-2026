@@ -118,7 +118,7 @@ void holonomic_odom_test() {
   chassis.holonomic_drive_to_pose(0, 0, 0);
 }
 
-void match_auton() { // test version
+void one_loader_side() { // test version
   // change the toggle
   chassis.turn_to_angle(0);
   chassis.drive_distance(5);
