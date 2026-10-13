@@ -1,36 +1,72 @@
+
+//  Normal adding
+// git add .
+// git commit -m"this is your message here"
+// git push
+// To pull it is
+// git pull
+// froget to pull
+// git fetch origin
+// git reset --hard origin/main
+
+using namespace vex;
+
+
 #pragma once
+
 
 #include "vex.h"
 
-extern vex::brain Brain;
 
-extern vex::controller Controller;
+using namespace vex;
 
-extern vex::motor LeftFront;
-extern vex::motor LeftBack;
-extern vex::motor LeftHalf;
 
-extern vex::motor RightFront;
-extern vex::motor RightBack;
-extern vex::motor RightHalf;
+extern brain Brain;
+extern controller Controller;
 
-extern vex::motor elbow;
 
-extern vex::motor_group LeftDrive;
-extern vex::motor_group RightDrive;
 
-extern vex::motor Intake1;
-extern vex::motor Intake2;
-extern vex::motor_group Intake;
 
-extern vex::digital_out Winch_Piston;
-extern vex::digital_out Claw_Piston;
+// DRIVE
+extern motor LeftFront;
+extern motor LeftBack;
+extern motor LeftHalf;
+
+
+extern motor RightFront;
+extern motor RightBack;
+extern motor RightHalf;
+
+
+extern motor_group LeftDrive;
+extern motor_group RightDrive;
+
+
+// INTAKE
+extern motor Intake1;
+extern motor Intake2;
+extern motor_group Intake;
+
+
+// OTHER MOTORS
+extern motor ArmBar1;
+extern motor ArmBar2;
+extern motor_group Armbar;
+
+
+// PNEUMATICS
+
+
+extern digital_out Claw_Piston;
+
+
+void vexcodeInit(void);
 
 const int SCORE_LEVEL_CONSTANT = 10;       // if we use the macro, we will need to tune it
 const int ARM_ROTATION_TIME_CONSTANT = 10; // this too
 // bool armOut;
 
-void vexcodeInit();
+
 
 void moveLift(int levels);
 
