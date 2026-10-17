@@ -1,7 +1,7 @@
 The Robohawks 8000X department. Coming soon.
 
 \
-Make sure that you have the VEX Robotics extension on Visual Studio Code!
+Make sure that you have the VEX Robotics extension on Visual Studio Code! (On Mac, you will also have to get Rosetta: `softwareupdate --install-rosetta --agree-to-terms`.)
 
 \
 If you want to use clang-format, first install clang-format:
