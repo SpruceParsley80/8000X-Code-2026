@@ -13,4 +13,9 @@ ContinuationIndentWidth: 2
 BreakConstructorInitializers: AfterColon
 ConstructorInitializerIndentWidth: 2
 PackConstructorInitializers: Never
+InsertNewlineAtEOF: true
+KeepEmptyLines:
+  AtStartOfFile: false
+  AtEndOfFile: false
+  AtStartOfBlock: false
 ...

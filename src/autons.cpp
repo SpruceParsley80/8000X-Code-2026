@@ -1,5 +1,3 @@
-
-
 #include "vex.h"
 
 /**
@@ -131,7 +129,6 @@ void holonomic_odom_test() {
 }
 
 void Auton() {
-
   chassis.drive_distance(2);  // forward, faster
   chassis.drive_distance(-4); // backward, normal
 
