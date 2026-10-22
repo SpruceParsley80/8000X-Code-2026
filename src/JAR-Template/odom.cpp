@@ -1,4 +1,5 @@
 #include "vex.h"
+using namespace vex; 
 
 /**
  * Setter method for tracker center distances.

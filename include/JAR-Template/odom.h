@@ -1,4 +1,5 @@
 #pragma once
+using namespace vex; 
 
 /**
  * General-use odometry class with X_position, Y_position, and

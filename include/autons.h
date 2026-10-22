@@ -1,6 +1,7 @@
 #pragma once
 
 #include "JAR-Template/drive.h"
+using namespace vex; 
 
 class Drive;
 
@@ -21,3 +22,6 @@ void odom_test();
 void tank_odom_test();
 void holonomic_odom_test();
 void Auton();
+void noAuton();
+void ToggleAuton();
+void MainAuton();
