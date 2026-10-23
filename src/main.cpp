@@ -308,6 +308,60 @@ switch(current_auton_selection){
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
+void moveArm(double target) {
+    double kP = 0.025;
+    double kD = 0.005;
+    double syncKP = 0.01;
+
+    double previousError = 0;
+    double maxVoltage = 3;
+
+    while (true) {
+        double leftPos = ArmBar1.position(degrees);
+        double rightPos = ArmBar2.position(degrees);
+
+        double average = (leftPos + rightPos) / 2.0;
+        double error = target - average;
+
+        double derivative = (error - previousError) / 0.02;
+
+        double power = kP * error + kD * derivative;
+
+        double difference = leftPos - rightPos;
+        double correction = difference * syncKP;
+
+        double leftPower = power - correction;
+        double rightPower = power + correction;
+
+        if (leftPower > maxVoltage) {
+            leftPower = maxVoltage;
+        }
+        if (leftPower < -maxVoltage) {
+            leftPower = -maxVoltage;
+        }
+
+        if (rightPower > maxVoltage) {
+            rightPower = maxVoltage;
+        }
+        if (rightPower < -maxVoltage) {
+            rightPower = -maxVoltage;
+        }
+
+        ArmBar1.spin(fwd, leftPower, volt);
+        ArmBar2.spin(fwd, rightPower, volt);
+
+        previousError = error;
+
+        if (fabs(error) < 3 && fabs(derivative) < 10) {
+            break;
+        }
+
+        wait(20, msec);
+    }
+
+    ArmBar1.stop(hold);
+    ArmBar2.stop(hold);
+}
 
 
 // void moveLift(double target) {
@@ -321,6 +375,10 @@ bool toggleA = false;
 bool pistonOut = false;
 // Toggles for the claw
 bool toggleB = false;
+double holdPosition1 = ArmBar1.position(degrees);
+double holdPosition2 = ArmBar2.position(degrees);
+double kP = 0.02;
+bool holding = false;
 
 
 //  Lift1.resetPosition();
@@ -344,14 +402,6 @@ while (1) {
   //Replace this line with chassis.control_tank(); for tank drive
   //or chassis.control_holonomic(); for holo drive.
   chassis.control_arcade();
-//   if (Controller.ButtonX.pressing()) {
-//     chassis.DriveL.spin(fwd, 3, volt);
-//     chassis.DriveR.spin(fwd, 3, volt);
-// }
-// else {
-//     chassis.DriveL.stop();
-//     chassis.DriveR.stop();
-// }
    // //Intake
 
 
@@ -380,15 +430,57 @@ while (1) {
    Lift.stop();
  }
   // For ArmBar
-  if(Controller.ButtonL1.pressing()){
-    Armbar.spin(fwd,65,pct);
-  }
-  else if(Controller.ButtonL2.pressing()){
-    Armbar.spin(reverse,65,pct);
-  }
-  else{
-    Armbar.stop(hold);
-  }
+  // if(Controller.ButtonL1.pressing()){
+  //   Armbar.spin(fwd,35,pct);
+  // }
+  // else if(Controller.ButtonL2.pressing()){
+  //   Armbar.spin(reverse,35,pct);
+  // }
+  // else{
+  //     Armbar.stop(hold);
+
+  // }
+
+  if (Controller.ButtonL1.pressing()) {
+    ArmBar1.spin(fwd, 40, pct);
+    ArmBar2.spin(fwd, 40, pct);
+    holding = false;
+}
+else if (Controller.ButtonL2.pressing()) {
+    ArmBar1.spin(reverse, 40, pct);
+    ArmBar2.spin(reverse, 65, pct);
+    holding = false;
+}
+else {
+    if (holding == false) {
+        holdPosition1 = ArmBar1.position(degrees);
+        holdPosition2 = ArmBar2.position(degrees);
+        holding = true;
+    }
+
+    double error1 = holdPosition1 - ArmBar1.position(degrees);
+    double error2 = holdPosition2 - ArmBar2.position(degrees);
+
+    double power1 = kP * error1;
+    double power2 = kP * error2;
+
+    if (power1 > 3) {
+        power1 = 3;
+    }
+    if (power1 < -3) {
+        power1 = -3;
+    }
+
+    if (power2 > 3) {
+        power2 = 3;
+    }
+    if (power2 < -3) {
+        power2 = -3;
+    }
+
+    ArmBar1.spin(fwd, power1, volt);
+    ArmBar2.spin(fwd, power2, volt);
+}
 
 
 
@@ -419,6 +511,13 @@ if (Controller.ButtonA.pressing()) {
                   // prevent wasted resources.
 }
 }
+
+
+
+
+
+
+
 
 
 

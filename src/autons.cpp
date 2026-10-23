@@ -221,6 +221,7 @@ chassis.drive_distance(-6);
 
 
 void noAuton(){
+
  }
 
  void ToggleAuton(){
