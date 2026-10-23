@@ -308,6 +308,8 @@ switch(current_auton_selection){
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
+
+
 void moveArm(double target) {
     double kP = 0.025;
     double kD = 0.005;
@@ -319,46 +321,34 @@ void moveArm(double target) {
     while (true) {
         double leftPos = ArmBar1.position(degrees);
         double rightPos = ArmBar2.position(degrees);
-
         double average = (leftPos + rightPos) / 2.0;
-        double error = target - average;
-
+       double error = target - average;
         double derivative = (error - previousError) / 0.02;
-
-        double power = kP * error + kD * derivative;
-
+      double power = kP * error + kD * derivative;
         double difference = leftPos - rightPos;
-        double correction = difference * syncKP;
-
+      double correction = difference * syncKP;
         double leftPower = power - correction;
-        double rightPower = power + correction;
-
+      double rightPower = power + correction;
         if (leftPower > maxVoltage) {
-            leftPower = maxVoltage;
+        leftPower = maxVoltage;
         }
         if (leftPower < -maxVoltage) {
-            leftPower = -maxVoltage;
+        leftPower = -maxVoltage;
         }
-
         if (rightPower > maxVoltage) {
-            rightPower = maxVoltage;
+        rightPower = maxVoltage;
         }
         if (rightPower < -maxVoltage) {
-            rightPower = -maxVoltage;
+        rightPower = -maxVoltage;
         }
-
         ArmBar1.spin(fwd, leftPower, volt);
         ArmBar2.spin(fwd, rightPower, volt);
-
         previousError = error;
-
         if (fabs(error) < 3 && fabs(derivative) < 10) {
             break;
         }
-
-        wait(20, msec);
+    wait(20, msec);
     }
-
     ArmBar1.stop(hold);
     ArmBar2.stop(hold);
 }
@@ -458,26 +448,22 @@ else {
         holding = true;
     }
 
-    double error1 = holdPosition1 - ArmBar1.position(degrees);
-    double error2 = holdPosition2 - ArmBar2.position(degrees);
-
-    double power1 = kP * error1;
+  double error1 = holdPosition1 - ArmBar1.position(degrees);
+  double error2 = holdPosition2 - ArmBar2.position(degrees);
+  double power1 = kP * error1;
     double power2 = kP * error2;
-
-    if (power1 > 3) {
-        power1 = 3;
+  if (power1 > 3) {
+  power1 = 3;
     }
     if (power1 < -3) {
-        power1 = -3;
+    power1 = -3;
     }
-
     if (power2 > 3) {
-        power2 = 3;
+    power2 = 3;
     }
     if (power2 < -3) {
-        power2 = -3;
+    power2 = -3;
     }
-
     ArmBar1.spin(fwd, power1, volt);
     ArmBar2.spin(fwd, power2, volt);
 }
@@ -497,8 +483,7 @@ if (Controller.ButtonA.pressing()) {
      wait(20, msec);
    }
  }
-// LeftFront.spin(fwd);
-// LeftBack.spin(fwd);
+
 
 
 
