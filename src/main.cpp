@@ -78,7 +78,7 @@ motor_group(RightFront, RightBack,RightHalf),
 
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT8,
+PORT9,
 
 
 
@@ -270,7 +270,7 @@ void autonomous(void) {
 auto_started = true;
 switch(current_auton_selection){
   case 0:
-  noAuton();
+  MainAuton();
    break;
   case 1:       
     drive_test();
@@ -299,6 +299,9 @@ switch(current_auton_selection){
 
 
 
+
+
+
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
 /*                              User Control Task                            */
@@ -310,6 +313,40 @@ switch(current_auton_selection){
 /*---------------------------------------------------------------------------*/
 
 
+
+
+void moveLift(double target) {
+    double kP = 0.02;
+    double maxVoltage = 6;
+
+    while (1) {
+        double leftPos = Lift1.position(degrees);
+        double rightPos = Lift2.position(degrees);
+       double average = (leftPos + rightPos) / 2.0;
+        double error = target - average;
+      double power = kP * error;
+        if (power > maxVoltage) {
+         power = maxVoltage;
+        }
+       if (power < -maxVoltage) {
+        power = -maxVoltage;
+        }
+        Lift1.spin(fwd, power, volt);
+        Lift2.spin(fwd, power, volt);
+        if (fabs(error) < 5) {
+            break;
+        }
+        wait(20, msec);
+    }
+    Lift1.stop(hold);
+    Lift2.stop(hold);
+}
+
+
+
+
+
+
 void moveArm(double target) {
     double kP = 0.025;
     double kD = 0.005;
@@ -318,37 +355,51 @@ void moveArm(double target) {
     double previousError = 0;
     double maxVoltage = 3;
 
-    while (true) {
+    timer armTimer;
+    armTimer.reset();
+
+    while (armTimer.time(msec) < 1000) {
         double leftPos = ArmBar1.position(degrees);
         double rightPos = ArmBar2.position(degrees);
+
         double average = (leftPos + rightPos) / 2.0;
-       double error = target - average;
+        double error = target - average;
+
         double derivative = (error - previousError) / 0.02;
-      double power = kP * error + kD * derivative;
+        double power = kP * error + kD * derivative;
+
         double difference = leftPos - rightPos;
-      double correction = difference * syncKP;
+        double correction = difference * syncKP;
+
         double leftPower = power - correction;
-      double rightPower = power + correction;
+        double rightPower = power + correction;
+
         if (leftPower > maxVoltage) {
-        leftPower = maxVoltage;
+            leftPower = maxVoltage;
         }
         if (leftPower < -maxVoltage) {
-        leftPower = -maxVoltage;
+            leftPower = -maxVoltage;
         }
+
         if (rightPower > maxVoltage) {
-        rightPower = maxVoltage;
+            rightPower = maxVoltage;
         }
         if (rightPower < -maxVoltage) {
-        rightPower = -maxVoltage;
+            rightPower = -maxVoltage;
         }
+
         ArmBar1.spin(fwd, leftPower, volt);
         ArmBar2.spin(fwd, rightPower, volt);
+
         previousError = error;
+
         if (fabs(error) < 3 && fabs(derivative) < 10) {
             break;
         }
-    wait(20, msec);
+
+        wait(20, msec);
     }
+
     ArmBar1.stop(hold);
     ArmBar2.stop(hold);
 }
@@ -414,10 +465,10 @@ while (1) {
    Lift.spin(fwd, 100, pct);
  }
  else if (Controller.ButtonR2.pressing()) {
-   Lift.spin(reverse, 100, pct);
+   Lift.spin(reverse, 45, pct);
  }
  else {
-   Lift.stop();
+   Lift.stop(hold);
  }
   // For ArmBar
   // if(Controller.ButtonL1.pressing()){
@@ -438,7 +489,7 @@ while (1) {
 }
 else if (Controller.ButtonL2.pressing()) {
     ArmBar1.spin(reverse, 40, pct);
-    ArmBar2.spin(reverse, 65, pct);
+    ArmBar2.spin(reverse, 40, pct);
     holding = false;
 }
 else {

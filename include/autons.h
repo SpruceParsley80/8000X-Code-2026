@@ -25,3 +25,4 @@ void Auton();
 void noAuton();
 void ToggleAuton();
 void MainAuton();
+void moveArm(double target);

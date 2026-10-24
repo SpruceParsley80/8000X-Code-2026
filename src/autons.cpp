@@ -221,35 +221,53 @@ chassis.drive_distance(-6);
 
 
 void noAuton(){
-
+  chassis.drive_distance(3);
  }
 
  void ToggleAuton(){
-  chassis.drive_distance(12);
+  Claw_Piston.set(false);
+  chassis.drive_distance(6,0,12,4);
   chassis.turn_to_angle(180);
-  chassis.drive_distance(17);   // forward, faster
-  chassis.drive_distance(-6);      // backward, normal
-
-
-
-
+  chassis.drive_distance(8);   // forward, faster
+  chassis.drive_distance(-4);      // backward, normal
   // forward, faster
-  chassis.drive_distance(8);
-  chassis.drive_distance(-6);
+  chassis.drive_distance(6);
  }
 
  void MainAuton(){
-  chassis.drive_distance(12);
+    Claw_Piston.set(false);
+  chassis.drive_distance(6,0,12,4);
   chassis.turn_to_angle(180);
-  chassis.drive_distance(17);   // forward, faster
-  chassis.drive_distance(-6);      // backward, normal
-
-
-
-
+  chassis.drive_distance(8);   // forward, faster
+  chassis.drive_distance(-4);      // backward, normal
   // forward, faster
-  chassis.drive_distance(8);
-  chassis.drive_distance(-6);
+  chassis.drive_distance(6);
+  chassis.drive_distance(-17.5);
+  chassis.drive_stop(hold);
+  moveArm(80);
+  wait(100,msec);
+  chassis.turn_to_angle(90);
+  chassis.drive_distance(17);
+  chassis.drive_distance(-1);
+  Claw_Piston.set(true);
+  // wait(100,msec);
+  // chassis.drive_distance(1);
+  // chassis.turn_to_angle(215);
+  // chassis.drive_distance(10,35,3,4);
+  // Claw_Piston.set(false);
+  // chassis.turn_to_angle(0);
+  // moveLift(200);
+  // moveArm(700);
+  // wait(100,msec);
+  // chassis.drive_distance(-10,0,10,4);
+  // chassis.drive_distance(2);
+  // moveArm(720);
+  // Claw_Piston.set(true);
+
+
+
+
+  
  }
 
 
