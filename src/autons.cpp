@@ -147,7 +147,7 @@ while(1){
   Brain.Screen.printAt(5,60, "Heading: %f", chassis.get_absolute_heading());
   Brain.Screen.printAt(5,80, "ForwardTracker: %f", chassis.get_ForwardTracker_position());
   Brain.Screen.printAt(5,100, "SidewaysTracker: %f", chassis.get_SidewaysTracker_position());
-  task::sleep(20);
+  vex::this_thread::sleep_for(20);
 }
 }
 
@@ -225,17 +225,12 @@ void noAuton(){
  }
 
  void ToggleAuton(){
-  Claw_Piston.set(false);
-  chassis.drive_distance(6,0,12,4);
-  chassis.turn_to_angle(180);
-  chassis.drive_distance(8);   // forward, faster
-  chassis.drive_distance(-4);      // backward, normal
-  // forward, faster
-  chassis.drive_distance(6);
+ toggle.spinFor(vex::forward, 1.0, vex::turns, 50, vex::velocityUnits::pct);
+
+
  }
 
  void MainAuton(){
-    Claw_Piston.set(false);
   chassis.drive_distance(6,0,12,4);
   chassis.turn_to_angle(180);
   chassis.drive_distance(8);   // forward, faster
@@ -249,12 +244,11 @@ void noAuton(){
   chassis.turn_to_angle(90);
   chassis.drive_distance(17);
   chassis.drive_distance(-1);
-  Claw_Piston.set(true);
+
   // wait(100,msec);
   // chassis.drive_distance(1);
   // chassis.turn_to_angle(215);
   // chassis.drive_distance(10,35,3,4);
-  // Claw_Piston.set(false);
   // chassis.turn_to_angle(0);
   // moveLift(200);
   // moveArm(700);
@@ -262,7 +256,7 @@ void noAuton(){
   // chassis.drive_distance(-10,0,10,4);
   // chassis.drive_distance(2);
   // moveArm(720);
-  // Claw_Piston.set(true);
+
 
 
 

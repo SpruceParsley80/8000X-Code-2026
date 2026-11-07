@@ -42,16 +42,16 @@ extern controller Controller;
 
 
 // DRIVE
-extern motor LeftFront;
+extern motor LeftMiddle;
 extern motor LeftBack;
-extern motor LeftHalf;
+extern motor LeftHalfmotor;
 
 
 
 
-extern motor RightFront;
+extern motor RightMiddle;
 extern motor RightBack;
-extern motor RightHalf;
+extern motor RightHalfmotor;
 
 
 
@@ -74,15 +74,15 @@ extern motor_group Lift;
 extern motor Claw1;
 extern motor_group Claw;
 
+extern motor toggle;
+
+
 
 
 
 // PNEUMATICS
 
 
-
-
-extern digital_out Claw_Piston;
 
 
 

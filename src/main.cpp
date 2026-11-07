@@ -65,10 +65,10 @@ ZERO_TRACKER_NO_ODOM,
 
 
 // Left Motors:
-motor_group(LeftFront, LeftBack,LeftHalf),
+motor_group(LeftMiddle, LeftBack,LeftHalfmotor),
 
 //Right Motors:
-motor_group(RightFront, RightBack,RightHalf),
+motor_group(RightMiddle, RightBack,RightHalfmotor),
 
 
 
@@ -200,7 +200,7 @@ void pre_auton() {
 vexcodeInit();
 chassis.Gyro.calibrate();
 default_constants();
-Claw_Piston.set(pistonOutB);
+
 
 
 
@@ -245,7 +245,8 @@ while(!auto_started){
   } else if (current_auton_selection == 8){
     current_auton_selection = 0;
   }
-  task::sleep(10);
+    vex::this_thread::sleep_for(10);
+
 }
 }
 
@@ -270,7 +271,7 @@ void autonomous(void) {
 auto_started = true;
 switch(current_auton_selection){
   case 0:
-  MainAuton();
+  ToggleAuton();
    break;
   case 1:       
     drive_test();
@@ -459,10 +460,10 @@ while (1) {
 
 
   if (Controller.ButtonR1.pressing()) {
-   Lift.spin(fwd, 100, pct);
+   Lift.spin(fwd, 50, pct);
  }
  else if (Controller.ButtonR2.pressing()) {
-   Lift.spin(reverse, 45, pct);
+   Lift.spin(reverse, 50, pct);
  }
  else {
    Lift.stop(hold);
@@ -475,24 +476,18 @@ while (1) {
    Claw.stop(hold);
  }
   
-
+if (Controller.ButtonUp.pressing()) {
+   toggle.spin(fwd, 50, pct);
+ } else if (Controller.ButtonDown.pressing()) {
+   toggle.spin(reverse, 50, pct);
+ } else {
+   toggle.stop(hold);
+ }
  
 
 //clean up as needed when we arent in such a time crunch
 
 
-
-
-
-
-if (Controller.ButtonA.pressing()) {
- 
-   pistonOutB = !pistonOutB;
-   Claw_Piston.set(pistonOutB);
-   while (Controller.ButtonA.pressing()) {
-     wait(20, msec);
-   }
- }
 
 
 

@@ -35,34 +35,38 @@ controller Controller = controller(primary);
 
 
 // Right SIDE
-motor RightFront = motor(PORT12,  ratio6_1, false);
-motor RightBack  = motor(PORT11, ratio6_1, false);
-motor RightHalf  = motor(PORT13, ratio6_1, false);
+//full motor 
+motor RightMiddle = motor(PORT6,  ratio6_1, false);
+motor RightBack  = motor(PORT19, ratio6_1, false);
+//half motor
+motor RightHalfmotor  = motor(PORT13, ratio6_1, false);
 
 
 
 
 // Left SIDE
-motor LeftFront = motor(PORT2, ratio6_1, true);
-motor LeftBack  = motor(PORT4,  ratio6_1, true);
-motor LeftHalf  = motor(PORT3,  ratio6_1, true);
+//full motor
+motor LeftMiddle = motor(PORT11, ratio6_1, true);
+motor LeftBack  = motor(PORT17,  ratio6_1, true);
+// half motor
+motor LeftHalfmotor  = motor(PORT12,  ratio6_1, true);
 
 
 
 
 motor_group LeftDrive = motor_group(
-  LeftFront,
+  LeftMiddle,
   LeftBack,
-  LeftHalf
+  LeftHalfmotor
 );
 
 
 
 
 motor_group RightDrive = motor_group(
-  RightFront,
+  RightMiddle,
   RightBack,
-  RightHalf
+  RightHalfmotor
 );
 
 
@@ -78,8 +82,8 @@ motor_group RightDrive = motor_group(
 
 // ================= INTAKE =================
 // it is supposed to be 5 but fr rightnow i am chqging it for the intertial sensor to work properly
-motor Lift1 = motor(PORT5, ratio6_1, false);
-motor Lift2 = motor(PORT15, ratio6_1, true);
+motor Lift1 = motor(PORT5, ratio18_1, false);
+motor Lift2 = motor(PORT15, ratio18_1, true);
 
 
 
@@ -98,9 +102,13 @@ motor_group Lift = motor_group(
 
 // ================= OTHER MOTORS =================
 
+
 motor Claw1 = motor(PORT20, ratio6_1, false); //change as needed
 
 motor_group Claw = motor_group(Claw1);
+
+motor toggle = motor(PORT10, ratio18_1, false);
+
 
 
 
@@ -128,10 +136,6 @@ motor_group Claw = motor_group(Claw1);
 
 
 
-
-
-
-digital_out Claw_Piston = digital_out(Brain.ThreeWirePort.B);
 
 
 

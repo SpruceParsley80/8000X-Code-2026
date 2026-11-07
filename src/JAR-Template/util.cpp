@@ -1,4 +1,5 @@
 #include "vex.h"
+#include <cmath>
 
 /**
  * Converts an angle to an equivalent one in the range [0, 360).
@@ -137,7 +138,7 @@ int to_port(int port){
  */
 
 float deadband(float input, float width){
-  if (std::fabs(input)<width){
+  if (fabs(input)<width){
     return(0);
   }
   return(input);
@@ -172,7 +173,7 @@ bool is_line_settled(float desired_X, float desired_Y, float desired_angle_deg, 
  */
 
 float left_voltage_scaling(float drive_output, float heading_output){
-  float ratio = std::max(std::fabs(drive_output+heading_output), std::fabs(drive_output-heading_output))/12.0;
+  float ratio = std::max(fabs(drive_output+heading_output),fabs(drive_output-heading_output))/12.0;
   if (ratio > 1) {
     return (drive_output+heading_output)/ratio;
   }
@@ -190,7 +191,7 @@ float left_voltage_scaling(float drive_output, float heading_output){
  */
 
 float right_voltage_scaling(float drive_output, float heading_output){
-  float ratio = std::max(std::fabs(drive_output+heading_output), std::fabs(drive_output-heading_output))/12.0;
+  float ratio = std::max(fabs(drive_output+heading_output),fabs(drive_output-heading_output))/12.0;
   if (ratio > 1) {
     return (drive_output-heading_output)/ratio;
   }
