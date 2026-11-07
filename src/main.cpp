@@ -359,16 +359,15 @@ void moveArm(double target) {
     armTimer.reset();
 
     while (armTimer.time(msec) < 1000) {
-        double leftPos = ArmBar1.position(degrees);
-        double rightPos = ArmBar2.position(degrees);
+      
 
-        double average = (leftPos + rightPos) / 2.0;
+        double average = 0;
         double error = target - average;
 
         double derivative = (error - previousError) / 0.02;
         double power = kP * error + kD * derivative;
 
-        double difference = leftPos - rightPos;
+        double difference = 0;
         double correction = difference * syncKP;
 
         double leftPower = power - correction;
@@ -388,8 +387,7 @@ void moveArm(double target) {
             rightPower = -maxVoltage;
         }
 
-        ArmBar1.spin(fwd, leftPower, volt);
-        ArmBar2.spin(fwd, rightPower, volt);
+       
 
         previousError = error;
 
@@ -400,8 +398,7 @@ void moveArm(double target) {
         wait(20, msec);
     }
 
-    ArmBar1.stop(hold);
-    ArmBar2.stop(hold);
+   
 }
 
 
@@ -416,8 +413,8 @@ bool toggleA = false;
 bool pistonOut = false;
 // Toggles for the claw
 bool toggleB = false;
-double holdPosition1 = ArmBar1.position(degrees);
-double holdPosition2 = ArmBar2.position(degrees);
+double holdPosition1 = 0;
+double holdPosition2 = 0; //unused
 double kP = 0.02;
 bool holding = false;
 
@@ -470,56 +467,18 @@ while (1) {
  else {
    Lift.stop(hold);
  }
-  // For ArmBar
-  // if(Controller.ButtonL1.pressing()){
-  //   Armbar.spin(fwd,35,pct);
-  // }
-  // else if(Controller.ButtonL2.pressing()){
-  //   Armbar.spin(reverse,35,pct);
-  // }
-  // else{
-  //     Armbar.stop(hold);
+ if (Controller.ButtonL1.pressing()) {
+   Claw.spin(fwd, 100, pct);
+ } else if (Controller.ButtonL2.pressing()) {
+   Claw.spin(reverse, 100, pct);
+ } else {
+   Claw.stop(hold);
+ }
+  
 
-  // }
+ 
 
-  if (Controller.ButtonL1.pressing()) {
-    ArmBar1.spin(fwd, 40, pct);
-    ArmBar2.spin(fwd, 40, pct);
-    holding = false;
-}
-else if (Controller.ButtonL2.pressing()) {
-    ArmBar1.spin(reverse, 40, pct);
-    ArmBar2.spin(reverse, 40, pct);
-    holding = false;
-}
-else {
-    if (holding == false) {
-        holdPosition1 = ArmBar1.position(degrees);
-        holdPosition2 = ArmBar2.position(degrees);
-        holding = true;
-    }
-
-  double error1 = holdPosition1 - ArmBar1.position(degrees);
-  double error2 = holdPosition2 - ArmBar2.position(degrees);
-  double power1 = kP * error1;
-    double power2 = kP * error2;
-  if (power1 > 3) {
-  power1 = 3;
-    }
-    if (power1 < -3) {
-    power1 = -3;
-    }
-    if (power2 > 3) {
-    power2 = 3;
-    }
-    if (power2 < -3) {
-    power2 = -3;
-    }
-    ArmBar1.spin(fwd, power1, volt);
-    ArmBar2.spin(fwd, power2, volt);
-}
-
-
+//clean up as needed when we arent in such a time crunch
 
 
 

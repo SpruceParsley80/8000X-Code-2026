@@ -97,8 +97,10 @@ motor_group Lift = motor_group(
 
 
 // ================= OTHER MOTORS =================
-motor ArmBar1 = motor(PORT10, ratio6_1, false);
-motor ArmBar2 = motor(PORT20, ratio6_1, true);
+
+motor Claw1 = motor(PORT20, ratio6_1, false); //change as needed
+
+motor_group Claw = motor_group(Claw1);
 
 
 
@@ -107,10 +109,7 @@ motor ArmBar2 = motor(PORT20, ratio6_1, true);
 
 
 
-motor_group Armbar = motor_group(
-  ArmBar1,
-  ArmBar2
-);
+
 
 
 
@@ -122,7 +121,7 @@ motor_group Armbar = motor_group(
 // ================= PNEUMATICS =================
 
 
-
+//not used but i dont want to delete right now
 
 
 
@@ -164,9 +163,3 @@ void moveLift(int levels) {
    Lift.stop(vex::brake);
  }
 }
-
-
-
-
-
-

@@ -71,9 +71,8 @@ extern motor_group Lift;
 
 
 // OTHER MOTORS
-extern motor ArmBar1;
-extern motor ArmBar2;
-extern motor_group Armbar;
+extern motor Claw1;
+extern motor_group Claw;
 
 
 
