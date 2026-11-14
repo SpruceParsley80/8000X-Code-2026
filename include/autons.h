@@ -24,5 +24,7 @@ void holonomic_odom_test();
 void Auton();
 void noAuton();
 void ToggleAuton();
-void MainAuton();
+void RightAuton();
+void LeftAuton();
+void PAuton();
 void moveArm(double target);

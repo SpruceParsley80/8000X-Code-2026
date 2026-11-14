@@ -78,7 +78,7 @@ motor_group(RightMiddle, RightBack,RightHalfmotor),
 
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT9,
+PORT13,
 
 
 
@@ -207,12 +207,15 @@ default_constants();
 
 while(!auto_started){
   Brain.Screen.clearScreen();
-  Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
-  Brain.Screen.printAt(5, 40, "Battery Percentage:");
-  Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
-  Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
-  Brain.Screen.printAt(5, 100, "%f", chassis.get_absolute_heading());
-  Brain.Screen.printAt(5, 120, "Selected Auton:");
+  // Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
+  // Brain.Screen.printAt(5, 40, "Battery Percentage:");
+  // Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
+  // Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
+  // Brain.Screen.printAt(5, 100, "%f", chassis.get_absolute_heading());
+  // Brain.Screen.printAt(5, 120, "Selected Auton:");
+Brain.Screen.printAt(10, 40, "Lift1: %.1f    ", Lift1.position(degrees));
+Brain.Screen.printAt(10, 70, "Lift2: %.1f    ", Lift2.position(degrees));
+Brain.Screen.printAt(10, 100, "Lift: %.1f    ", Lift.position(degrees));
   switch(current_auton_selection){
     case 0:
       Brain.Screen.printAt(5, 140, "Auton 1");
@@ -271,8 +274,8 @@ void autonomous(void) {
 auto_started = true;
 switch(current_auton_selection){
   case 0:
-  ToggleAuton();
-   break;
+  PAuton();
+  break;
   case 1:       
     drive_test();
     break;
@@ -313,96 +316,68 @@ switch(current_auton_selection){
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-
-
-
-void moveLift(double target) {
-    double kP = 0.02;
-    double maxVoltage = 6;
-
-    while (1) {
-        double leftPos = Lift1.position(degrees);
-        double rightPos = Lift2.position(degrees);
-       double average = (leftPos + rightPos) / 2.0;
-        double error = target - average;
-      double power = kP * error;
-        if (power > maxVoltage) {
-         power = maxVoltage;
-        }
-       if (power < -maxVoltage) {
-        power = -maxVoltage;
-        }
-        Lift1.spin(fwd, power, volt);
-        Lift2.spin(fwd, power, volt);
-        if (fabs(error) < 5) {
-            break;
-        }
-        wait(20, msec);
-    }
-    Lift1.stop(hold);
-    Lift2.stop(hold);
+void moveLift(double degree){
+  // chassis.set_turn_constants(12, .4, .03, 3, 15);
+  PID armPID(degree, 0.4, 0.00, 0, 15, 4, 300, 2500);
+  while(!armPID.is_settled()){
+    double error = degree - Lift.position(degrees); 
+    Lift.spin(fwd, armPID.compute(error), volt); 
+    wait(10, msec);
+    // lift.spin(reverse, 12, volt); 
+    // lift.spinTo(degree,degrees); 
+  }
 }
+// void moveLift(double target) {
+//     double kP = 0.02;
+//     double maxVoltage = 6;
+//     double minVoltage = 1.5;
+//     double downMaxVoltage = 3;
 
+//     timer liftTimer;
+//     liftTimer.reset();
 
+//     while (liftTimer.time(msec) < 3000) {
 
+//         double average = fmod(Lift.position(degrees), 360);
+//         double error = target - average;
 
+//         double power = kP * error;
 
+//         if (fabs(power) < minVoltage) {
+//             break;
+//         }
 
-void moveArm(double target) {
-    double kP = 0.025;
-    double kD = 0.005;
-    double syncKP = 0.01;
+//         // Limit voltage
+//         if (power > maxVoltage) {
+//             power = maxVoltage;
+//         }
 
-    double previousError = 0;
-    double maxVoltage = 3;
+//         directionType direction;
+ 
+//         // if (error > 0) {
+//         //     direction = fwd;
+//         // }
+//         // else {
+//         //     direction = reverse;
+//         // }
 
-    timer armTimer;
-    armTimer.reset();
+//         // if (direction == reverse && power > downMaxVoltage) {
+//         //     power = downMaxVoltage;
+//         // }
 
-    while (armTimer.time(msec) < 1000) {
-      
+//         Lift.spin(fwd, power, volt);
 
-        double average = 0;
-        double error = target - average;
+//         Brain.Screen.clearScreen();
 
-        double derivative = (error - previousError) / 0.02;
-        double power = kP * error + kD * derivative;
+//         // Brain.Screen.printAt(10, 40, "Lift1: %.2f", leftPos);
+//         // Brain.Screen.printAt(10, 70, "Lift2: %.2f", rightPos);
+//         Brain.Screen.printAt(10, 100, "Target: %.2f", target);
+//         Brain.Screen.printAt(10, 130, "Error: %.2f", error);
+//         wait(20, msec);
+//     }
 
-        double difference = 0;
-        double correction = difference * syncKP;
-
-        double leftPower = power - correction;
-        double rightPower = power + correction;
-
-        if (leftPower > maxVoltage) {
-            leftPower = maxVoltage;
-        }
-        if (leftPower < -maxVoltage) {
-            leftPower = -maxVoltage;
-        }
-
-        if (rightPower > maxVoltage) {
-            rightPower = maxVoltage;
-        }
-        if (rightPower < -maxVoltage) {
-            rightPower = -maxVoltage;
-        }
-
-       
-
-        previousError = error;
-
-        if (fabs(error) < 3 && fabs(derivative) < 10) {
-            break;
-        }
-
-        wait(20, msec);
-    }
-
-   
-}
-
-
+//     Lift.stop(hold);
+//   }
 // void moveLift(double target) {
 //     Lift1.spinToPosition(target, rev, 70, velocityUnits::pct, false);
 //     Lift2.spinToPosition(target, rev, 70, velocityUnits::pct, false);
@@ -423,6 +398,11 @@ bool holding = false;
 //  Lift1.resetPosition();
 //  Lift2.resetPosition();
 while (1) {
+  
+  
+  
+
+    wait(20, msec);
   // This is the main execution loop for the user control program.
   // Each time through the loop your program should update motor + servo
   // values based on feedback from the joysticks.
@@ -443,9 +423,9 @@ while (1) {
   chassis.control_arcade();
    // //Intake
 
-
-   Brain.Screen.clearScreen();
-   Brain.Screen.printAt(8, 1, "DRIVER CONTROL RUNNING");
+  
+  //  Brain.Screen.clearScreen();
+  //  Brain.Screen.printAt(8, 1, "DRIVER CONTROL RUNNING");
 
 
   
@@ -468,25 +448,24 @@ while (1) {
  else {
    Lift.stop(hold);
  }
- if (Controller.ButtonL1.pressing()) {
-   Claw.spin(fwd, 100, pct);
- } else if (Controller.ButtonL2.pressing()) {
-   Claw.spin(reverse, 100, pct);
+ if (Controller.ButtonL2.pressing()) {
+   Claw.spin(fwd, 2, volt);
+ } else if (Controller.ButtonL1.pressing()) {
+   Claw.spin(reverse, 60, volt);
  } else {
    Claw.stop(hold);
  }
   
 if (Controller.ButtonUp.pressing()) {
-   toggle.spin(fwd, 50, pct);
+   toggle.spin(fwd, 60, volt);
  } else if (Controller.ButtonDown.pressing()) {
-   toggle.spin(reverse, 50, pct);
+   toggle.spin(reverse, 60, volt);
  } else {
    toggle.stop(hold);
  }
  
 
 //clean up as needed when we arent in such a time crunch
-
 
 
 

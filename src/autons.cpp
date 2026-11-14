@@ -225,25 +225,68 @@ void noAuton(){
  }
 
  void ToggleAuton(){
- toggle.spinFor(vex::forward, 1.0, vex::turns, 50, vex::velocityUnits::pct);
+ Claw1.spin(reverse, 60, volt);
+ toggle.spinFor(vex::reverse, 1.0, vex::turns, 100, vex::velocityUnits::pct);
+ Claw1.stop(hold);
+
 
 
  }
 
- void MainAuton(){
-  chassis.drive_distance(6,0,12,4);
-  chassis.turn_to_angle(180);
-  chassis.drive_distance(8);   // forward, faster
-  chassis.drive_distance(-4);      // backward, normal
-  // forward, faster
-  chassis.drive_distance(6);
-  chassis.drive_distance(-17.5);
-  chassis.drive_stop(hold);
-  moveArm(80);
+ void RightAuton(){
+Lift1.resetPosition();
+Lift2.resetPosition();
+  Claw1.spin(reverse, 100, pct);
+  toggle.spinFor(vex::reverse, 1.0, vex::turns, 100, vex::velocityUnits::pct);
+  chassis.drive_distance(15,90);
+  Claw1.stop(hold);
+  Lift.spin(fwd, 50, pct);
+  Lift.stop(hold);
+
+  // wait(100,msec);
+  // Lift.spin(reverse, 50, pct);
+  // wait(350, msec);
+  // Lift.stop(hold);
+ }
+
+  void LeftAuton(){
+  Lift1.resetPosition();
+Lift2.resetPosition();
+  Claw1.spin(reverse, 100, pct);
+  toggle.spinFor(vex::reverse, 1.0, vex::turns, 100, vex::velocityUnits::pct);
+  Claw1.stop(hold);
+  chassis.drive_distance(15.5);
+  Claw1.spin(reverse, 12, volt);
+  chassis.turn_to_angle(270);
+  Claw1.stop(hold);
+  Lift.spin(fwd, 50, pct);
+  wait(1000, msec);
+  Lift.stop(hold);
+  chassis.drive_distance(17,270);
+  chassis.drive_distance(2,270,5,5);
   wait(100,msec);
-  chassis.turn_to_angle(90);
-  chassis.drive_distance(17);
-  chassis.drive_distance(-1);
+  Lift.spin(reverse, 50, pct);
+  wait(350, msec);
+  Lift.stop(hold);
+  Claw1.spin(fwd, 100, pct);
+  }
+
+void PAuton(){
+
+  Lift1.setPosition(0, degrees);
+  Lift2.setPosition(0, degrees);
+  Lift.setPosition(0,degrees);
+  moveLift(50);
+  wait(1000,msec);
+  moveLift(0);
+  wait(1000,msec);
+  moveLift(200);
+  wait(1000,msec);
+  moveLift(0);
+}
+ 
+  // run claw1.spin when taking in a pin and at 60 volts
+
 
   // wait(100,msec);
   // chassis.drive_distance(1);
@@ -262,7 +305,7 @@ void noAuton(){
 
 
   
- }
+
 
 
 
