@@ -24,7 +24,7 @@ void default_constants(){
 // Each constant set is in the form of (maxVoltage, kP, kI, kD, startI).
 chassis.set_drive_constants( 11,  1.75,  0,  .25 , 0);
 chassis.set_heading_constants(6, .4, 0, 1, 0);
-chassis.set_turn_constants(  12,  0.4,  0,1.5,0);
+chassis.set_turn_constants(12, 0.4, 0.03, 3, 15);
 chassis.set_swing_constants(12, 1, .0,0, 0);
 
 
@@ -233,21 +233,146 @@ void noAuton(){
 
  }
 
- void RightAuton(){
-Lift1.resetPosition();
-Lift2.resetPosition();
-  Claw1.spin(reverse, 100, pct);
-  toggle.spinFor(vex::reverse, 1.0, vex::turns, 100, vex::velocityUnits::pct);
-  chassis.drive_distance(15,90);
-  Claw1.stop(hold);
-  Lift.spin(fwd, 50, pct);
-  Lift.stop(hold);
+//  int liftTarget = 0;
+//  void liftTaskFunction() {
+//   while (true) {
+//     Lift.spinToPosition(liftTarget, degrees);
+//     // wait(20, msec);
+//   }
+//  }
 
-  // wait(100,msec);
-  // Lift.spin(reverse, 50, pct);
-  // wait(350, msec);
-  // Lift.stop(hold);
+
+
+
+
+
+ /// right auton coming at a angle
+ void RightAuton(){
+  // int liftTarget = 0;
+    Lift.setVelocity(60,pct);
+
+  Lift1.resetPosition();
+  Lift2.resetPosition();
+  // thread liftTask(liftTaskFunction);
+  Claw1.spin(reverse, 30, pct);
+  toggle.spinFor(vex::reverse, 1, vex::turns, 100, vex::velocityUnits::pct);
+  // Lift.spin
+  chassis.turn_to_angle(60);
+
+  Lift.spinToPosition(200, degrees, false); 
+   // liftTarget = 300;
+   wait(600,msec);
+  chassis.drive_distance(21,60);
+  // chassis.drive_distance(2,60,12,12,2,200,200);
+  chassis.drive_distance(4,60,12,12,2,200,200);
+  LeftDrive.stop(hold);
+  RightDrive.stop(hold);
+  Claw1.stop(hold);
+  Lift.spinToPosition(35, degrees, true);
+  // liftTarget = 0;
+  Lift1.resetPosition();
+  Lift2.resetPosition();
+  Claw1.spin(fwd,100,pct);
+  chassis.turn_to_angle(60);
+  Claw1.setBrake(hold);
+ chassis.drive_distance(-15,60);
+ chassis.turn_to_angle(0);
+Claw1.spin(reverse,100  ,pct);
+ chassis.drive_distance(24,0,12,12);
+ chassis.turn_to_angle(53);
+ chassis.drive_distance(7 ,53,12,12);
+ chassis.drive_distance(12 ,53,3,3);
+ Lift.spinToPosition(60,degrees,true);
+ wait(500,msec);
+ chassis.turn_to_angle(180,9);
+
+ 
+ Lift.spinToPosition(200,degrees,true);
+
+
+ chassis.drive_distance(24,180);
+ chassis.drive_distance(2,180);
+ Lift.spinToPosition(70,degrees,true);
+ Claw1.spin(fwd,70,pct);
+ 
+ chassis.turn_to_angle(180);
+ chassis.drive_distance(-24,180);
+ chassis.turn_to_angle(110);
+ Claw1.spin(fwd,70,pct);
+ chassis.drive_distance(29,36,3,3);
+ Lift.spinToPosition(50,degrees,false);
+ wait(500,msec);
+ chassis.turn_to_angle(270,6);
+ Lift.spinToPosition(200,degrees,true);
+ chassis.drive_distance(22,270);
+ Lift.spinToPosition(70,degrees,true);
+ Claw1.spin(fwd,70,pct);
+
+
+
+
  }
+
+
+//Right Auton coming straight on
+//  void RightAuton(){
+//   // int liftTarget = 0;
+  
+//   Lift1.resetPosition();
+//   Lift2.resetPosition();
+//   // thread liftTask(liftTaskFunction);
+//   Claw1.spin(reverse, 100, pct);
+//   toggle.spinFor(vex::reverse, 1, vex::turns, 100, vex::velocityUnits::pct);
+//   // Lift.spin
+//   Lift.spinToPosition(200, degrees, false);
+//   // liftTarget = 300;
+//   chassis.drive_distance(13,90);
+//   chassis.drive_distance(24,90);
+//   LeftDrive.stop(hold);
+//   RightDrive.stop(hold);
+//   Claw1.stop(hold);
+//   Lift.setVelocity(32,pct);
+//   Lift.spinToPosition(0, degrees, true);
+//   // liftTarget = 0;
+//   Lift1.resetPosition();
+//   Lift2.resetPosition();
+//   Claw1.spin(fwd,70,pct);
+//   wait(100,msec);
+//   Claw1.stop(hold);
+//   chassis.turn_to_angle(90);
+//  chassis.drive_distance(-15,90);
+//  chassis.turn_to_angle(36);
+// Claw1.spin(reverse,100,pct);
+//  chassis.drive_distance(29,36,3,3);
+//  Lift.spinToPosition(50,degrees,false);
+//  wait(500,msec);
+//  chassis.turn_to_angle(180,6);
+
+ 
+//  Lift.spinToPosition(200,degrees,true);
+
+
+//  chassis.drive_distance(22,180);
+//  Lift.spinToPosition(70,degrees,true);
+//  Claw1.spin(fwd,70,pct);
+ 
+//  chassis.turn_to_angle(180);
+//  chassis.drive_distance(-24,180);
+//  chassis.turn_to_angle(110);
+//  Claw1.spin(fwd,70,pct);
+//  chassis.drive_distance(29,36,3,3);
+//  Lift.spinToPosition(50,degrees,false);
+//  wait(500,msec);
+//  chassis.turn_to_angle(270,6);
+//  Lift.spinToPosition(200,degrees,true);
+//  chassis.drive_distance(22,270);
+//  Lift.spinToPosition(70,degrees,true);
+//  Claw1.spin(fwd,70,pct);
+
+
+
+
+//  }
 
   void LeftAuton(){
   Lift1.resetPosition();
@@ -272,18 +397,13 @@ Lift2.resetPosition();
   }
 
 void PAuton(){
+  chassis.turn_to_angle(90);
+  chassis.drive_distance(10);
+  chassis.turn_to_angle(270);
+ 
 
-  Lift1.setPosition(0, degrees);
-  Lift2.setPosition(0, degrees);
-  Lift.setPosition(0,degrees);
-  moveLift(50);
-  wait(1000,msec);
-  moveLift(0);
-  wait(1000,msec);
-  moveLift(200);
-  wait(1000,msec);
-  moveLift(0);
 }
+
  
   // run claw1.spin when taking in a pin and at 60 volts
 

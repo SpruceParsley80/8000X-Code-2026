@@ -99,7 +99,7 @@ PORT13,
 
 //Gyro scale, this is what your gyro reads when you spin the robot 360 degrees.
 //For most cases 360 will do fine here, but this scale factor can be very helpful when precision is necessary.
-347,
+358,
 
 
 
@@ -207,15 +207,12 @@ default_constants();
 
 while(!auto_started){
   Brain.Screen.clearScreen();
-  // Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
-  // Brain.Screen.printAt(5, 40, "Battery Percentage:");
-  // Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
-  // Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
-  // Brain.Screen.printAt(5, 100, "%f", chassis.get_absolute_heading());
-  // Brain.Screen.printAt(5, 120, "Selected Auton:");
-Brain.Screen.printAt(10, 40, "Lift1: %.1f    ", Lift1.position(degrees));
-Brain.Screen.printAt(10, 70, "Lift2: %.1f    ", Lift2.position(degrees));
-Brain.Screen.printAt(10, 100, "Lift: %.1f    ", Lift.position(degrees));
+  Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
+  Brain.Screen.printAt(5, 40, "Battery Percentage:");
+  Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
+  Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
+  Brain.Screen.printAt(5, 100, "%f", chassis.get_absolute_heading());
+  Brain.Screen.printAt(5, 120, "Selected Auton:");
   switch(current_auton_selection){
     case 0:
       Brain.Screen.printAt(5, 140, "Auton 1");
@@ -274,7 +271,7 @@ void autonomous(void) {
 auto_started = true;
 switch(current_auton_selection){
   case 0:
-  PAuton();
+  RightAuton();
   break;
   case 1:       
     drive_test();
@@ -316,17 +313,23 @@ switch(current_auton_selection){
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-void moveLift(double degree){
-  // chassis.set_turn_constants(12, .4, .03, 3, 15);
-  PID armPID(degree, 0.4, 0.00, 0, 15, 4, 300, 2500);
-  while(!armPID.is_settled()){
-    double error = degree - Lift.position(degrees); 
-    Lift.spin(fwd, armPID.compute(error), volt); 
-    wait(10, msec);
-    // lift.spin(reverse, 12, volt); 
-    // lift.spinTo(degree,degrees); 
-  }
-}
+// void liftTaskFunction() {
+//   while(true) {
+//     Lift.spinToPosition(liftTarget, degrees);
+//   }
+// }
+
+// void moveLift(double degree){
+//   // chassis.set_turn_constants(12, .4, .03, 3, 15);
+//   PID armPID(degree, 0.4, 0.00, 0, 15, 4, 300, 2500);
+//   while(!armPID.is_settled()){
+//     double error = degree - Lift.position(degrees); 
+//     Lift.spin(fwd, armPID.compute(error), volt); 
+//     wait(10, msec);
+//     // lift.spin(reverse, 12, volt); 
+//     // lift.spinTo(degree,degrees); 
+//   }
+// }
 // void moveLift(double target) {
 //     double kP = 0.02;
 //     double maxVoltage = 6;

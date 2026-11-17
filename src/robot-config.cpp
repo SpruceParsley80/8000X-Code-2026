@@ -47,7 +47,7 @@ motor RightHalfmotor  = motor(PORT13, ratio18_1, false);
 // Left SIDE
 //full motor
 motor LeftMiddle = motor(PORT11, ratio6_1, true);
-motor LeftBack  = motor(PORT17,  ratio6_1, false);
+motor LeftBack  = motor(PORT17,  ratio6_1, true);
 // half motor
 motor LeftHalfmotor  = motor(PORT12,  ratio18_1, true);
 
