@@ -65,10 +65,10 @@ ZERO_TRACKER_NO_ODOM,
 
 
 // Left Motors:
-motor_group(LeftMiddle, LeftBack,LeftHalfmotor),
+motor_group(LeftFront, LeftBack,LeftHalfmotor),
 
 //Right Motors:
-motor_group(RightMiddle, RightBack,RightHalfmotor),
+motor_group(RightFront, RightBack,RightHalfmotor),
 
 
 
@@ -443,18 +443,18 @@ while (1) {
 
 
   if (Controller.ButtonR1.pressing()) {
-   Lift.spin(fwd, 50, pct);
+   Lift.spin(fwd, 100, pct);
  }
  else if (Controller.ButtonR2.pressing()) {
-   Lift.spin(reverse, 50, pct);
+   Lift.spin(reverse, 100, pct);
  }
  else {
    Lift.stop(hold);
  }
  if (Controller.ButtonL2.pressing()) {
-   Claw.spin(fwd, 2, volt);
+   Claw.spin(fwd, 12, volt);
  } else if (Controller.ButtonL1.pressing()) {
-   Claw.spin(reverse, 60, volt);
+   Claw.spin(reverse, 3, volt);
  } else {
    Claw.stop(hold);
  }
@@ -466,7 +466,10 @@ if (Controller.ButtonUp.pressing()) {
  } else {
    toggle.stop(hold);
  }
- 
+
+if (Controller.ButtonA.pressing()){
+  Lift.spinToPosition(0, degrees, 100, velocityUnits::pct);
+} 
 
 //clean up as needed when we arent in such a time crunch
 

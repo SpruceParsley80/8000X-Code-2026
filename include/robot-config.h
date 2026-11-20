@@ -42,14 +42,14 @@ extern controller Controller;
 
 
 // DRIVE
-extern motor LeftMiddle;
+extern motor LeftFront;
 extern motor LeftBack;
 extern motor LeftHalfmotor;
 
 
 
 
-extern motor RightMiddle;
+extern motor RightFront;
 extern motor RightBack;
 extern motor RightHalfmotor;
 

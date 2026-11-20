@@ -36,26 +36,26 @@ controller Controller = controller(primary);
 
 // Right SIDE
 //full motor 
-motor RightMiddle = motor(PORT6,  ratio6_1, false);
-motor RightBack  = motor(PORT19, ratio6_1, false);
+motor RightFront = motor(PORT18,  ratio6_1, false);
+motor RightBack  = motor(PORT20, ratio6_1, false);
 //half motor
-motor RightHalfmotor  = motor(PORT13, ratio18_1, false);
+motor RightHalfmotor  = motor(PORT19, ratio18_1, false);
 
 
 
 
 // Left SIDE
 //full motor
-motor LeftMiddle = motor(PORT11, ratio6_1, true);
+motor LeftFront = motor(PORT16, ratio6_1, true);
 motor LeftBack  = motor(PORT17,  ratio6_1, true);
 // half motor
-motor LeftHalfmotor  = motor(PORT12,  ratio18_1, true);
+motor LeftHalfmotor  = motor(PORT15,  ratio18_1, true);
 
 
 
 
 motor_group LeftDrive = motor_group(
-  LeftMiddle,
+  LeftFront,
   LeftBack,
   LeftHalfmotor
 );
@@ -64,7 +64,7 @@ motor_group LeftDrive = motor_group(
 
 
 motor_group RightDrive = motor_group(
-  RightMiddle,
+  RightFront,
   RightBack,
   RightHalfmotor
 );
@@ -82,8 +82,8 @@ motor_group RightDrive = motor_group(
 
 // ================= INTAKE =================
 // it is supposed to be 5 but fr rightnow i am chqging it for the intertial sensor to work properly
-motor Lift1 = motor(PORT5, ratio18_1, false);
-motor Lift2 = motor(PORT15, ratio18_1, true);
+motor Lift1 = motor(PORT10, ratio18_1, true);
+motor Lift2 = motor(PORT9, ratio18_1, false);
 
 
 
@@ -103,11 +103,11 @@ motor_group Lift = motor_group(
 // ================= OTHER MOTORS =================
 
 
-motor Claw1 = motor(PORT20, ratio6_1, false); //change as needed
+motor Claw1 = motor(PORT5, ratio6_1, false); //change as needed
 
 motor_group Claw = motor_group(Claw1);
 
-motor toggle = motor(PORT10, ratio18_1, false);
+motor toggle = motor(PORT2, ratio18_1, false);
 
 
 
