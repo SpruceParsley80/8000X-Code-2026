@@ -271,7 +271,7 @@ void autonomous(void) {
 auto_started = true;
 switch(current_auton_selection){
   case 0:
-  RightAuton();
+  PIDAuton();
   break;
   case 1:       
     drive_test();
@@ -444,9 +444,9 @@ while (1) {
    Lift.stop(hold);
  }
  if (Controller.ButtonL2.pressing()) {
-   Claw.spin(fwd, 12, volt);
+   Claw.spin(reverse, 12, volt);
  } else if (Controller.ButtonL1.pressing()) {
-   Claw.spin(reverse, 3, volt);
+   Claw.spin(fwd, 12, volt);
  } else {
    Claw.stop(hold);
  }

@@ -28,3 +28,4 @@ void RightAuton();
 void LeftAuton();
 void PAuton();
 void moveArm(double target);
+void PIDAuton();
