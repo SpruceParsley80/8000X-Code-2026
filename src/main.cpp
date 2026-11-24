@@ -78,7 +78,7 @@ motor_group(RightFront, RightBack,RightHalfmotor),
 
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT13,
+PORT8,
 
 
 
@@ -388,18 +388,10 @@ switch(current_auton_selection){
 void usercontrol(void) {
 // User control code here, inside the loop
 // Toggles for the winch
-bool toggleA = false;
-bool pistonOut = false;
-// Toggles for the claw
-bool toggleB = false;
-double holdPosition1 = 0;
-double holdPosition2 = 0; //unused
-double kP = 0.02;
-bool holding = false;
+Lift1.resetPosition();
+Lift2.resetPosition();
+Lift.resetPosition();
 
-
-//  Lift1.resetPosition();
-//  Lift2.resetPosition();
 while (1) {
   
   
@@ -443,10 +435,10 @@ while (1) {
 
 
   if (Controller.ButtonR1.pressing()) {
-   Lift.spin(fwd, 100, pct);
+   Lift.spin(fwd, 120, volt);
  }
  else if (Controller.ButtonR2.pressing()) {
-   Lift.spin(reverse, 100, pct);
+   Lift.spin(reverse, 120, volt);
  }
  else {
    Lift.stop(hold);
