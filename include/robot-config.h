@@ -75,7 +75,7 @@ extern motor Claw1;
 extern motor_group Claw;
 
 extern motor toggle;
-
+extern distance backDistance;
 
 
 

@@ -109,6 +109,8 @@ motor_group Claw = motor_group(Claw1);
 
 motor toggle = motor(PORT7, ratio18_1, false);
 
+distance backDistance = distance(PORT4);
+
 
 
 

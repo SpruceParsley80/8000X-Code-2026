@@ -78,7 +78,7 @@ motor_group(RightFront, RightBack,RightHalfmotor),
 
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT8,
+PORT12,
 
 
 
@@ -99,7 +99,8 @@ PORT8,
 
 //Gyro scale, this is what your gyro reads when you spin the robot 360 degrees.
 //For most cases 360 will do fine here, but this scale factor can be very helpful when precision is necessary.
-358,
+// 356,
+359,
 
 
 
@@ -201,10 +202,6 @@ vexcodeInit();
 chassis.Gyro.calibrate();
 default_constants();
 
-
-
-
-
 while(!auto_started){
   Brain.Screen.clearScreen();
   Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
@@ -271,7 +268,7 @@ void autonomous(void) {
 auto_started = true;
 switch(current_auton_selection){
   case 0:
-  PIDAuton();
+  RightAuton();
   break;
   case 1:       
     drive_test();

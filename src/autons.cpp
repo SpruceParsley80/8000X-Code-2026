@@ -22,9 +22,9 @@ using namespace vex;
 
 void default_constants(){
 // Each constant set is in the form of (maxVoltage, kP, kI, kD, startI).
-chassis.set_drive_constants( 11,  1.75,  0,  .25 , 0);
+chassis.set_drive_constants( 12,  .9,  0,  1.5 , 0);
 chassis.set_heading_constants(6, .4, 0, 1, 0);
-chassis.set_turn_constants(12, 0.4, 0.03, 3, 15);
+chassis.set_turn_constants(12, 0.51, 0, 3.53, 15);
 chassis.set_swing_constants(12, 1, .0,0, 0);
 
 
@@ -249,64 +249,75 @@ void noAuton(){
  /// right auton coming at a angle
  void RightAuton(){
   // int liftTarget = 0;
-    Lift.setVelocity(60,pct);
+    Lift.setVelocity(100,pct);
 
   Lift1.resetPosition();
   Lift2.resetPosition();
   // thread liftTask(liftTaskFunction);
-  Claw1.spin(reverse, 30, pct);
-  toggle.spinFor(vex::reverse, 1, vex::turns, 100, vex::velocityUnits::pct);
-  // Lift.spin
-  chassis.turn_to_angle(60);
+  Claw1.spin(reverse, 100, pct);
+  chassis.drive_distance(-8,0,12,12,true,300,300);
+  chassis.drive_distance_from_wall( 7, chassis.get_absolute_heading());
+  chassis.drive_distance(-9,0,12,12,true,300,300);
 
-  Lift.spinToPosition(200, degrees, false); 
-   // liftTarget = 300;
-   wait(600,msec);
-  chassis.drive_distance(21,60);
-  // chassis.drive_distance(2,60,12,12,2,200,200);
-  chassis.drive_distance(4,60,12,12,2,200,200);
-  LeftDrive.stop(hold);
-  RightDrive.stop(hold);
-  Claw1.stop(hold);
-  Lift.spinToPosition(35, degrees, true);
-  // liftTarget = 0;
-  Lift1.resetPosition();
-  Lift2.resetPosition();
+
+
+
+
+  Lift.spinToPosition(300, degrees, false);
+
+
+//settle err/angle to hit alliance goal
+  chassis.turn_to_angle(65);
+
+  chassis.drive_distance(23,65,10,10);
+  chassis.drive_distance(-.8,65,10,10);
+
+
+
+  // chassis.drive_distance(-1,65);
+
+  // chassis.drive_distance(,65);
+    Lift.setVelocity(80,pct);
+
+  Lift.spinToPosition(0, degrees, true);
+
+  Claw1.spin(fwd, 100, pct);
+    wait(500,msec);
+  // Lift.spinToPosition(50, degrees, false);
+  chassis.turn_to_angle(65,12,3,100,300);
+  chassis.drive_distance(-12,90,10,10);
+  Lift.spinToPosition(0, degrees, false);
+  chassis.turn_to_angle(0,12,2,100,300);
+  chassis.drive_distance(14,0);
+  chassis.turn_to_angle(47,12,2,500,500);
+  Claw1.spin(reverse,100,pct);
+  Lift.spinToPosition(0, degrees, false);
+  chassis.drive_distance(15,47,12,12);
+  chassis.drive_distance(15,47,2,2);
+   Lift.setVelocity(100,pct);
+  Lift.spinToPosition(400,degrees,false);
+  chassis.turn_to_angle(180,6);
+  chassis.drive_distance(27,180,7,7);
+     Lift.setVelocity(60,pct);
+
+  Lift.spinToPosition(0,degrees,false);
+  wait(200,msec);
   Claw1.spin(fwd,100,pct);
-  chassis.turn_to_angle(60);
-  Claw1.setBrake(hold);
- chassis.drive_distance(-15,60);
- chassis.turn_to_angle(0);
-Claw1.spin(reverse,100  ,pct);
- chassis.drive_distance(24,0,12,12);
- chassis.turn_to_angle(53);
- chassis.drive_distance(7 ,53,12,12);
- chassis.drive_distance(12 ,53,3,3);
- Lift.spinToPosition(60,degrees,true);
- wait(500,msec);
- chassis.turn_to_angle(180,9);
-
- 
- Lift.spinToPosition(200,degrees,true);
+  wait(100,msec);
+  chassis.drive_distance(-14,180);
+  chassis.turn_to_angle(127);
+  Claw1.spin(reverse,100,pct);
+  chassis.drive_distance(19,127,12,12);
+  chassis.drive_distance(9,127,3,3);
 
 
- chassis.drive_distance(24,180);
- chassis.drive_distance(2,180);
- Lift.spinToPosition(70,degrees,true);
- Claw1.spin(fwd,70,pct);
- 
- chassis.turn_to_angle(180);
- chassis.drive_distance(-24,180);
- chassis.turn_to_angle(110);
- Claw1.spin(fwd,70,pct);
- chassis.drive_distance(29,36,3,3);
- Lift.spinToPosition(50,degrees,false);
- wait(500,msec);
- chassis.turn_to_angle(270,6);
- Lift.spinToPosition(200,degrees,true);
- chassis.drive_distance(22,270);
- Lift.spinToPosition(70,degrees,true);
- Claw1.spin(fwd,70,pct);
+
+  
+
+
+
+
+  
 
 
 
@@ -375,32 +386,68 @@ Claw1.spin(reverse,100  ,pct);
 //  }
 
   void LeftAuton(){
-  Lift1.resetPosition();
-Lift2.resetPosition();
-  Claw1.spin(reverse, 100, pct);
-  toggle.spinFor(vex::reverse, 1.0, vex::turns, 100, vex::velocityUnits::pct);
-  Claw1.stop(hold);
-  chassis.drive_distance(15.5);
-  Claw1.spin(reverse, 12, volt);
-  chassis.turn_to_angle(270);
-  Claw1.stop(hold);
-  Lift.spin(fwd, 50, pct);
-  wait(1000, msec);
-  Lift.stop(hold);
-  chassis.drive_distance(17,270);
-  chassis.drive_distance(2,270,5,5);
-  wait(100,msec);
-  Lift.spin(reverse, 50, pct);
-  wait(350, msec);
-  Lift.stop(hold);
-  Claw1.spin(fwd, 100, pct);
-  }
+  Lift.setVelocity(100,pct);
 
-void PAuton(){
-  chassis.turn_to_angle(90);
-  chassis.drive_distance(10);
-  chassis.turn_to_angle(270);
- 
+  Lift1.resetPosition();
+  Lift2.resetPosition();
+  // thread liftTask(liftTaskFunction);
+  Claw1.spin(reverse, 100, pct);
+  chassis.drive_distance(-8,0,12,12,true,300,300);
+  chassis.drive_distance_from_wall( 7, chassis.get_absolute_heading());
+  chassis.drive_distance(-9,0,12,12,true,300,300);
+
+
+
+
+
+  Lift.spinToPosition(300, degrees, false);
+
+
+//settle err/angle to hit alliance goal
+  chassis.turn_to_angle(295);
+
+  chassis.drive_distance(24,295,10,10);
+  chassis.drive_distance(-.8,295,10,10);
+
+
+
+  // chassis.drive_distance(-1,65);
+
+  // chassis.drive_distance(,65);
+    Lift.setVelocity(80,pct);
+
+  Lift.spinToPosition(0, degrees, true);
+
+  Claw1.spin(fwd, 100, pct);
+    wait(500,msec);
+  // Lift.spinToPosition(50, degrees, false);
+  chassis.turn_to_angle(295,12,3,100,300);
+  chassis.drive_distance(-12,270,10,10);
+  Lift.spinToPosition(0, degrees, false);
+  chassis.turn_to_angle(0,12,2,100,300);
+  chassis.drive_distance(14,0);
+  chassis.turn_to_angle(312,12,2,500,500);
+  Claw1.spin(reverse,100,pct);
+  Lift.spinToPosition(0, degrees, false);
+  chassis.drive_distance(14,314,12,12);
+  chassis.drive_distance(14,314,2,2);
+   Lift.setVelocity(100,pct);
+  Lift.spinToPosition(400,degrees,false);
+  chassis.turn_to_angle(180,6);
+  chassis.drive_distance(27,180,7,7);
+     Lift.setVelocity(60,pct);
+
+  Lift.spinToPosition(0,degrees,false);
+  wait(200,msec);
+  Claw1.spin(fwd,100,pct);
+  wait(100,msec);
+  chassis.drive_distance(-14,180);
+  chassis.turn_to_angle(234);
+  Claw1.spin(reverse,100,pct);
+  chassis.drive_distance(19,234,12,12);
+  chassis.drive_distance(9,234,3,3);
+
+
 
 }
 
@@ -422,14 +469,28 @@ void PAuton(){
 
 
 void PIDAuton(){
-  chassis.drive_distance(24);
- 
+  chassis.turn_to_angle(90);
+  Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
+  Brain.Screen.printAt(5, 100, "%f", chassis.get_absolute_heading());
+}
+
+void  DistancecheckAuton(){
+    double startDistance = backDistance.objectDistance(inches);
+chassis.drive_distance_from_wall( 10, chassis.get_absolute_heading());
+    double endDistance = backDistance.objectDistance(inches);
+double distanceMoved = endDistance - startDistance;
+
+Brain.Screen.clearScreen();
+
+Brain.Screen.printAt(10, 40, "Start: %.2f in", startDistance);
+Brain.Screen.printAt(10, 70, "End: %.2f in", endDistance);
+Brain.Screen.printAt(10, 100, "Moved: %.2f in", distanceMoved);
+
+wait(2000, msec);
 }
 
 
   
-
-
 
 
 

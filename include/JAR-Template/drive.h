@@ -152,4 +152,14 @@ public:
   void control_arcade();
   void control_tank();
   void control_holonomic();
+
+  void drive_distance_from_wall(float distance, float heading);
+
+void drive_distance_from_wall(
+    float distance, float heading,
+    float drive_max_voltage, float heading_max_voltage,
+    float drive_settle_error, float drive_settle_time,
+    float drive_timeout, float drive_kp, float drive_ki,
+    float drive_kd, float drive_starti, float heading_kp,
+    float heading_ki, float heading_kd, float heading_starti);
 };

@@ -29,3 +29,5 @@ void LeftAuton();
 void PAuton();
 void moveArm(double target);
 void PIDAuton();
+void DistancecheckAuton();
+void SkillsAuton();
