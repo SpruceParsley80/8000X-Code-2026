@@ -82,7 +82,7 @@ motor_group RightDrive = motor_group(
 
 // ================= INTAKE =================
 // it is supposed to be 5 but fr rightnow i am chqging it for the intertial sensor to work properly
-motor Lift1 = motor(PORT10, ratio18_1, false);
+motor Lift1 = motor(PORT8, ratio18_1, false);
 motor Lift2 = motor(PORT9, ratio18_1, true);
 
 
@@ -109,7 +109,7 @@ motor_group Claw = motor_group(Claw1);
 
 motor toggle = motor(PORT7, ratio18_1, false);
 
-distance backDistance = distance(PORT4);
+distance backDistance = distance(PORT1);
 
 
 

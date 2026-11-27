@@ -266,32 +266,34 @@ while(!auto_started){
 
 void autonomous(void) {
 auto_started = true;
-switch(current_auton_selection){
-  case 0:
-  RightAuton();
-  break;
-  case 1:       
-    drive_test();
-    break;
-  case 2:
-    turn_test();
-    break;
-  case 3:
-    swing_test();
-    break;
-  case 4:
-    full_test();
-    break;
-  case 5:
-    odom_test();
-    break;
-  case 6:
-    tank_odom_test();
-    break;
-  case 7:
-    holonomic_odom_test();
-    break;
-}
+RightAuton();
+
+// LeftAuton();
+// switch(current_auton_selection){
+//   case 0:
+//   break;
+//   case 1:       
+//     drive_test();
+//     break;
+//   case 2:
+//     turn_test();
+//     break;
+//   case 3:
+//     swing_test();
+//     break;
+//   case 4:
+//     full_test();
+//     break;
+//   case 5:
+//     odom_test();
+//     break;
+//   case 6:
+//     tank_odom_test();
+//     break;
+//   case 7:
+//     holonomic_odom_test();
+//     break;
+// }
 }
 
 
