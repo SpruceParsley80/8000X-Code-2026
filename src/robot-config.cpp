@@ -36,7 +36,7 @@ controller Controller = controller(primary);
 
 // Right SIDE
 //full motor 
-motor RightFront = motor(PORT13,  ratio6_1, false);
+motor RightFront = motor(PORT13,  ratio6_1, false); //13 -> 13
 motor RightBack  = motor(PORT15, ratio6_1, false);
 //half motor
 motor RightHalfmotor  = motor(PORT18, ratio18_1, false);
@@ -49,7 +49,7 @@ motor RightHalfmotor  = motor(PORT18, ratio18_1, false);
 motor LeftFront = motor(PORT19, ratio6_1, true);
 motor LeftBack  = motor(PORT17,  ratio6_1, true);
 // half motor
-motor LeftHalfmotor  = motor(PORT20,  ratio18_1, true);
+motor LeftHalfmotor  = motor(PORT2,  ratio18_1, true); //20  -> 2 b/c 20 no 
 
 
 
