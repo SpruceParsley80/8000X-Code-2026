@@ -247,20 +247,18 @@ void noAuton(){
 
 
  /// right auton coming at a angle
- void RightAuton(){
+ void RightAuton() {
+  // thread printingThread = thread([](){Brain.Screen.printAt(0, 0, "%f", chassis.get_absolute_heading());});
   // int liftTarget = 0;
-    Lift.setVelocity(100,pct);
+  Lift.setVelocity(100, pct);
 
   Lift1.resetPosition();
   Lift2.resetPosition();
   // thread liftTask(liftTaskFunction);
-  Claw1.spin(reverse, 100, pct);
+  // Claw1.spin(reverse, 100, pct);
   chassis.drive_distance(-8,0,12,12,true,300,300);
   chassis.drive_distance_from_wall( 7, chassis.get_absolute_heading());
   chassis.drive_distance(-9,0,12,12,true,300,300);
-
-
-
 
 
   Lift.spinToPosition(300, degrees, false);
@@ -309,20 +307,7 @@ void noAuton(){
   Claw1.spin(reverse,100,pct);
   chassis.drive_distance(19,127,12,12);
   chassis.drive_distance(9,127,3,3);
-
-
-
-  
-
-
-
-
-  
-
-
-
-
- }
+}
 
 
 //Right Auton coming straight on
