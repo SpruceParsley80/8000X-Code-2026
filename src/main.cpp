@@ -266,9 +266,9 @@ while(!auto_started){
 
 void autonomous(void) {
 auto_started = true;
-RightAuton();
+// RightAuton();
 
-// LeftAuton();
+LeftAuton();
 // switch(current_auton_selection){
 //   case 0:
 //   break;
